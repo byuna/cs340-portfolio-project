@@ -26,27 +26,27 @@ CREATE TABLE Items (
   item_id               int not NULL AUTO_INCREMENT,
   item_description      varchar(50) not NULL,
   item_cost             decimal(7,2) not NULL,
-  computer_format       varchar(50) not NULL,
-  computer_purpose      varchar(50) not NULL,
+  pc_format       varchar(50) not NULL,
+  pc_purpose      varchar(50) not NULL,
   PRIMARY KEY           (item_id)
 );
 
-CREATE TABLE Pcorders (
-  build_order_id        int not NULL AUTO_INCREMENT,
+CREATE TABLE Pc_orders (
+  pc_order_id        int not NULL AUTO_INCREMENT,
   order_date            date not NULL,
   cost                  decimal (9,2) not NULL,
   employee_id           int,
   customer_id           int not NULL,
-  PRIMARY KEY           (build_order_id),
+  PRIMARY KEY           (pc_order_id),
   FOREIGN KEY           (employee_id) REFERENCES Employees(employee_id),
   FOREIGN KEY           (customer_id) REFERENCES Customers(customer_id)
 );
 
 CREATE TABLE Pc_orders_has_items (
-  build_order_id        int not NULL,
+  pc_order_id        int not NULL,
   item_id               int not NULL,
   quantity              int not NULL,
-  FOREIGN KEY           (build_order_id) REFERENCES Pcorders(build_order_id),
+  FOREIGN KEY           (pc_order_id) REFERENCES Pc_orders(pc_order_id),
   FOREIGN KEY           (item_id) REFERENCES Items(item_id)
 );
 
