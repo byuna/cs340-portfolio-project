@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS Pcorders;
+DROP TABLE IF EXISTS Pc_orders;
 DROP TABLE IF EXSITS Pc_orders_has_items;
 DROP TABLE IF EXISTS Items;
 DROP TABLE IF EXISTS Employees;
@@ -26,13 +26,13 @@ CREATE TABLE Items (
   item_id               int not NULL AUTO_INCREMENT,
   item_description      varchar(50) not NULL,
   item_cost             decimal(7,2) not NULL,
-  pc_format       varchar(50) not NULL,
-  pc_purpose      varchar(50) not NULL,
+  pc_format             varchar(50) not NULL,
+  pc_purpose            varchar(50) not NULL,
   PRIMARY KEY           (item_id)
 );
 
 CREATE TABLE Pc_orders (
-  pc_order_id        int not NULL AUTO_INCREMENT,
+  pc_order_id           int not NULL AUTO_INCREMENT,
   order_date            date not NULL,
   cost                  decimal (9,2) not NULL,
   employee_id           int,
@@ -43,7 +43,7 @@ CREATE TABLE Pc_orders (
 );
 
 CREATE TABLE Pc_orders_has_items (
-  pc_order_id        int not NULL,
+  pc_order_id           int not NULL,
   item_id               int not NULL,
   quantity              int not NULL,
   FOREIGN KEY           (pc_order_id) REFERENCES Pc_orders(pc_order_id),
