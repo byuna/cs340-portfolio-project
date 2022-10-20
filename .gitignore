@@ -1,3 +1,2 @@
-node_modules/
-db-connector.js/
-/db/
+/node_modules
+/db-connector.js
