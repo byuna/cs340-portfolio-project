@@ -19,9 +19,9 @@ CREATE TABLE Customers (
 CREATE TABLE Employees (
   employee_id             int not NULL AUTO_INCREMENT,
   employee_first_name     varchar(50) not NULL,
-  emlployee_last_name     varchar(50) not NULL,
+  employee_last_name      varchar(50) not NULL,
   employee_phone          varchar(50) not NULL,
-  emlployee_email         varchar(50) not NULL,
+  employee_email          varchar(50) not NULL,
   PRIMARY KEY             (employee_id)
 );
 
@@ -54,35 +54,20 @@ CREATE TABLE Pc_orders_has_items (
 );
 
 
-
 ALTER TABLE Customers AUTO_INCREMENT = 1001;
 -- Insertion Data
-INSERT Customers (
-    customer_first_name,
-    customer_last_name,
-    customer_phone,
-    customer_email
-  )
-  
-VALUES (
-    'John',
-    'Smith',
-    'johnsmith@yeemail.com',
-    '555-123-4567'
-  ),
-  (
-    'Tom',
-    'Ati',
-    'tomato9000@yeemail.com',
-    '555-7600-9991'
-  ),
-  (
-    'Stanley',
-    'Yelnats',
-    'stanleyyelnats@yeemail.com',
-    '555-413-5454'
-  );
+INSERT Customers (customer_first_name, customer_last_name, customer_phone, customer_email)
+VALUES  ('John', 'Smith', 'johnsmith@yeemail.com', '555-123-4567'),
+        ('Tom', 'Ati', 'tomato9000@yeemail.com', '555-7600-9991'),
+        ('Stanley', 'Yelnats', 'stanleyyelnats@yeemail.com', '555-413-5454');
 -- Show all tables
+
+INSERT Employees (employee_first_name, employee_last_name, employee_phone, employee_email)
+VALUES  ('Atticus', 'Finch', '555-123-9874', 'fincha@tbps.com'),
+        ('Guy', 'Dude', '555-404-1337', 'dudeg@tbps.com'),
+        ('John', 'Wick', '555-555-1024', 'wickj@tbps.com');
+
+
 SELECT * FROM Customers;
 -- SELECT *
 -- FROM Employees;
