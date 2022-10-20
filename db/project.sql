@@ -56,6 +56,7 @@ CREATE TABLE Pc_orders_has_items (
 
 ALTER TABLE Customers AUTO_INCREMENT = 1001;
 -- Insertion Data
+
 INSERT Customers (customer_first_name, customer_last_name, customer_phone, customer_email)
 VALUES  ('John', 'Smith', 'johnsmith@yeemail.com', '555-123-4567'),
         ('Tom', 'Ati', 'tomato9000@yeemail.com', '555-7600-9991'),
@@ -66,6 +67,12 @@ INSERT Employees (employee_first_name, employee_last_name, employee_phone, emplo
 VALUES  ('Atticus', 'Finch', '555-123-9874', 'fincha@tbps.com'),
         ('Guy', 'Dude', '555-404-1337', 'dudeg@tbps.com'),
         ('John', 'Wick', '555-555-1024', 'wickj@tbps.com');
+
+INSERT Items (item_description, item_cost, pc_format, pc_purpose)
+VALUES  ('The next gen portable gaming Laptop!', 3500, 'laptop', 'gaming'),
+        ('Intellitron 5000 for Businesses!', 5000, 'desktop', 'business'),
+        ('The best do it all for family homes!', 1500, 'desktop', 'home');
+
 
 
 SELECT * FROM Customers;
