@@ -1,0 +1,24 @@
+{
+  "name": "byuna",
+  "version": "1.0.0",
+  "description": "![App Screenshot](https://i.imgur.com/a5Kcphf.png)",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/steventran619/CS340_PCDB.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/steventran619/CS340_PCDB/issues"
+  },
+  "homepage": "https://github.com/steventran619/CS340_PCDB#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "forever": "^4.0.3",
+    "mysql": "^2.18.1"
+  }
+}
