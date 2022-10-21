@@ -54,8 +54,8 @@ ALTER TABLE Customers AUTO_INCREMENT = 2001;
 INSERT Customers (
     customer_first_name,
     customer_last_name,
-    customer_phone,
-    customer_email
+    customer_email,
+    customer_phone
   )
 VALUES (
     'John',
@@ -147,7 +147,7 @@ VALUES (
   ),
   (
     "2022-10-05",
-    6000.00,
+    3000.00,
     (
       SELECT customer_id
       FROM Customers
