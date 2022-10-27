@@ -1,0 +1,53 @@
+<H1>Customers</H1>
+
+{{!-- Create a table --}}
+<table id="customers-table">
+  {{!-- Header section --}}
+  <thead>
+    {{!-- For just the first row, we print each key of the row object as a header cell so we
+      know what each column means when the page renders --}}
+    <tr>
+      {{#each data.[0]}}
+      <th>
+        {{@key}}
+      </th>
+      {{/each}}
+    </tr>
+  </thead>
+
+  
+  {{!-- Body section --}}
+  <tbody>
+    {{!-- For each row, print attributes in order --}}
+    {{#each data}}
+    <tr>
+      <td>{{this.customer_id}}</td>
+      <td>{{this.customer_first_name}}</td>
+      <td>{{this.customer_last_name}}</td>
+      <td>{{this.customer_phone}}</td>
+      <td>{{this.customer_email}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<h2>New Customer Application</h2>
+<p>To add a new customer, please enter the information below and click 'Submit'!</p>
+<form id="add-customer-form-ajax">
+  <label for="input-customer_first_name">First name: </label>
+  <input type="text" name="input-customer_first_name" id="input-customer_first_name">
+
+  <label for="input-customer_last_name">Last name: </label>
+  <input type="text" name="input-customer_last_name" id="input-customer_last_name">
+
+  <label for="input-customer_phone">Phone number: </label>
+  <input type="text" name="input-customer_phone" id="input-customer_phone">
+
+  <label for="input-customer_email">Email address: </label>
+  <input type="text" name="input-customer_email" id="input-customer_email">
+
+  <input type="submit">
+</form>
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/add_customer.js"></script>
