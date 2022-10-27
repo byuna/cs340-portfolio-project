@@ -64,6 +64,15 @@ app.get('/pc-orders', function(req, res) {
   })
 });
 
+app.get('/pc-orders-has-items', function(req, res) {
+  
+  let queryPcorders = "SELECT * FROM Pc_orders_has_items;"
+
+  db.pool.query(queryPcorders, function(error, rows, fields) {
+    res.render('pc-orders-has-items', {data: rows});
+  })
+});
+
 
 /*
     LISTENER
