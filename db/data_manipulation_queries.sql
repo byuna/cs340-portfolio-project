@@ -26,6 +26,10 @@ VALUES (
         :customerEmail,
         :customerPhoneNumber
     );
+
+-- Delete old customer
+DELETE FROM Customers WHERE customer_id = :customer_id_entered_by_user;
+
 -- Add a new employee
 INSERT Employees (
         employee_first_name,
@@ -40,9 +44,16 @@ VALUES (
         :employeePhoneNumber
     );
 
+-- Delete ex employee
+DELETE FROM Employees WHERE employee_id = :employee_id_to_be_removed;
+
 -- Delete an item thats Overcome by Events (OBE) / No longer sold
 DELETE FROM Items WHERE item_id = :some_item_id;
 
+-- Query to update an item quantity on an order.
+UPDATE Pc_orders_has_items
+SET quantity = :quantiy_entered_by_user
+WHERE sub_order_id = :sub_order_id_to_be_updated;
 
 -- Get a customers information for 
 -- SELECT bsg_people.character_id, fname, lname, bsg_planets.name AS homeworld, age 
