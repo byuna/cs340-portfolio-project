@@ -40,9 +40,23 @@ VALUES (
         :employeePhoneNumber
     );
 
+-- Show a customers items from a specific order
+
+
 -- Delete an item thats Overcome by Events (OBE) / No longer sold
 DELETE FROM Items WHERE item_id = :some_item_id;
 
+
+-- Remove an item from an order
+SELECT Pc_orders.pc_order_id, Pc_orders_has_items.item_id, Pc_orders_has_items.quantity
+FROM Pc_orders_has_items
+JOIN Pc_orders on Pc_orders_has_items.pc_order_id = Pc_orders.pc_order_id
+WHERE pc_order_id = :somePcOrderID;
+
+-- Update item quantity from an order
+update Pc_orders_has_items set quantity = :newQuantity where pc_order_id = :customersOrderID
+
+-- Delete an order
 
 -- Get a customers information for 
 -- SELECT bsg_people.character_id, fname, lname, bsg_planets.name AS homeworld, age 
