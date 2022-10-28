@@ -1,0 +1,52 @@
+<H1>Items</H1>
+
+{{!-- Create a table --}}
+<table id="items-table">
+  {{!-- Header section --}}
+  <thead>
+    {{!-- For just the first row, we print each key of the row object as a header cell so we
+      know what each column means when the page renders --}}
+    <tr>
+      {{#each data.[0]}}
+      <th>
+        {{@key}}
+      </th>
+      {{/each}}
+    </tr>
+  </thead>
+
+  
+  {{!-- Body section --}}
+  <tbody>
+    {{#each data}}
+    <tr>
+      <td>{{this.item_id}}</td>
+      <td>{{this.item_description}}</td>
+      <td>{{this.item_cost}}</td>
+      <td>{{this.pc_format}}</td>
+      <td>{{this.pc_purpose}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<h2>New Item Addition</h2>
+<p>To add a new item to the inventory, please enter the information below and click 'Submit'!</p>
+<form id="add-item-form-ajax">
+  <label for="input-item_description">Item Description: </label>
+  <input type="text" name="input-item_description" id="input-item_description">
+
+  <label for="input-item_cost">Item Cost: </label>
+  <input type="number" name="input-item_cost" id="input-item_cost">
+
+  <label for="input-pc_format">PC Format: </label>
+  <input type="text" name="input-pc_format" id="input-pc_format">
+
+  <label for="input-pc_purpose">PC Purpose: </label>
+  <input type="text" name="input-pc_purpose" id="input-pc_purpose">
+
+  <input type="submit">
+</form>
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/add_item.js"></script>
