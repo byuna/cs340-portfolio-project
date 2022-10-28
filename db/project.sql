@@ -24,7 +24,7 @@ CREATE TABLE Employees (
 );
 CREATE TABLE Pc_orders (
   pc_order_id int not NULL AUTO_INCREMENT,
-  order_date date not NULL,
+  order_date datetime not NULL,
   cost decimal (9, 2) not NULL,
   employee_id int,
   customer_id int not NULL,
@@ -45,7 +45,7 @@ CREATE TABLE Pc_orders_has_items (
   pc_order_id int not NULL,
   item_id int not NULL,
   quantity int not NULL,
-  FOREIGN KEY (pc_order_id) REFERENCES Pc_orders(pc_order_id) ON DELETE RESTRICT,
+  FOREIGN KEY (pc_order_id) REFERENCES Pc_orders(pc_order_id) ON DELETE CASCADE,
   FOREIGN KEY (item_id) REFERENCES Items(item_id) ON DELETE RESTRICT,
   PRIMARY KEY (sub_order_id)
 );
