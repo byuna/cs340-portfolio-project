@@ -44,6 +44,13 @@ VALUES (
         :employeePhoneNumber
     );
 
+
+-- Delete old customer
+DELETE FROM Customers WHERE customer_id = :customer_id_entered_by_user;
+
+-- Delete ex-employee
+DELETE FROM Employees WHERE employee_id = :employee_id_to_be_removed;
+
 -- Delete an item thats Overcome by Events (OBE) / No longer sold
 DELETE FROM Items WHERE item_id = :some_item_id;
 

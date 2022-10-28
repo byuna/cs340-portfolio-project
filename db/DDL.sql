@@ -188,7 +188,7 @@ VALUES (
       from Items
       WHERE pc_purpose = "home"
     ),
-    5
+    1
   ),
   (
     5000002,
