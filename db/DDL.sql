@@ -4,11 +4,9 @@ DROP TABLE IF EXISTS Employees;
 DROP TABLE IF EXISTS Pc_orders;
 DROP TABLE IF EXISTS Pc_orders_has_items;
 DROP TABLE IF EXISTS Items;
-SET foreign_key_checks = 1;
 
 -- Creation Tables
 CREATE TABLE Customers (
-
   customer_id int not NULL AUTO_INCREMENT,
   customer_first_name varchar(45) not NULL,
   customer_last_name varchar(45) not NULL,
@@ -31,7 +29,7 @@ CREATE TABLE Employees (
 
 CREATE TABLE Pc_orders (
   pc_order_id int not NULL AUTO_INCREMENT,
-  order_date date not NULL,
+  order_date datetime not NULL,
   cost decimal (9, 2) not NULL,
   employee_id int,
   customer_id int not NULL,
@@ -57,16 +55,15 @@ CREATE TABLE Pc_orders_has_items (
   pc_order_id int not NULL,
   item_id int not NULL,
   quantity int not NULL,
-  FOREIGN KEY (pc_order_id) REFERENCES Pc_orders(pc_order_id) ON DELETE RESTRICT,
+  FOREIGN KEY (pc_order_id) REFERENCES Pc_orders(pc_order_id) ON DELETE CASCADE,
   FOREIGN KEY (item_id) REFERENCES Items(item_id) ON DELETE RESTRICT,
   PRIMARY KEY (sub_order_id)
 
 );
 
 
-ALTER TABLE Customers AUTO_INCREMENT = 1001;
 -- Insertion Data
-
+ALTER TABLE Customers AUTO_INCREMENT = 2001;
 INSERT Customers (
     customer_first_name,
     customer_last_name,
@@ -191,7 +188,7 @@ VALUES (
       from Items
       WHERE pc_purpose = "home"
     ),
-    1
+    5
   ),
   (
     5000002,
