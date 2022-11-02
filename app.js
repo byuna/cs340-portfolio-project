@@ -29,7 +29,7 @@ app.get('/', function(req, res) {
 
 app.get('/customers', function(req, res) {
   
-  let queryCustomers = "SELECT * FROM Customers;"
+  let queryCustomers = "SELECT customer_id AS 'Customer ID', customer_first_name AS 'First Name', customer_last_name AS 'Last Name', customer_phone AS 'Phone Number', customer_email AS 'Email Address' FROM Customers;"
 
   db.pool.query(queryCustomers, function(error, rows, fields) {
     res.render('customers', {data: rows});
