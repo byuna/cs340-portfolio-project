@@ -1,2 +1,4 @@
 /node_modules
 /database/db-connector.js
+/db/db-connector.js
+/db/test.sql
