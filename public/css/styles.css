@@ -25,3 +25,21 @@ Navigation Bar
   text-decoration: none;
 }
 
+table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  background-color:  #FFFBE1;
+}
+
+thead tr {
+  background-color: blue;
+  color: #ffffff;
+}
+
+th, td{
+  padding: 12px;
+}
+
