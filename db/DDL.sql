@@ -112,20 +112,20 @@ INSERT Items (
 VALUES (
     'The next gen portable gaming Laptop!',
     3500,
-    'laptop',
-    'gaming'
+    'Laptop',
+    'Gaming'
   ),
   (
     'Intellitron 5000 for Businesses!',
     5000,
-    'desktop',
-    'business'
+    'Desktop',
+    'Business'
   ),
   (
     'The best do it all for family homes!',
     1500,
-    'desktop',
-    'home'
+    'Desktop',
+    'Home'
   );
 ALTER TABLE Pc_orders AUTO_INCREMENT = 5000001;
 Insert INTO Pc_orders (order_date, cost, customer_id, employee_id)

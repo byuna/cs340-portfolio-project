@@ -27,6 +27,9 @@ app.get('/', function(req, res) {
   res.render('index');
 });
 
+/*
+Customers page route and select all query.
+*/
 app.get('/customers', function(req, res) {
   
   let queryCustomers = "SELECT customer_id AS 'Customer ID', customer_first_name AS 'First Name', customer_last_name AS 'Last Name', customer_phone AS 'Phone Number', customer_email AS 'Email Address' FROM Customers;"
@@ -38,7 +41,7 @@ app.get('/customers', function(req, res) {
 
 app.get('/items', function(req, res) {
   
-  let queryItems = "SELECT * FROM Items;"
+  let queryItems = "SELECT item_id AS 'Item ID', item_description AS 'Description', item_cost AS 'Cost', pc_format AS 'Format', pc_purpose AS 'Purpose' FROM Items;"
 
   db.pool.query(queryItems, function(error, rows, fields) {
     res.render('items', {data: rows});
@@ -47,7 +50,7 @@ app.get('/items', function(req, res) {
 
 app.get('/employees', function(req, res) {
   
-  let queryEmployees = "SELECT * FROM Employees;"
+  let queryEmployees = "SELECT employee_id AS 'Employee ID', employee_first_name AS 'First Name', employee_last_name AS 'Last Name', employee_phone AS 'Phone Number', employee_email AS 'Email Address' FROM Employees;"
 
   db.pool.query(queryEmployees, function(error, rows, fields) {
     res.render('employees', {data: rows});
@@ -56,7 +59,7 @@ app.get('/employees', function(req, res) {
 
 app.get('/pc-orders', function(req, res) {
   
-  let queryPcorders = "SELECT * FROM Pc_orders;"
+  let queryPcorders = "SELECT pc_order_id AS 'Order ID', order_date AS 'Order Date', cost AS 'Cost', employee_id AS 'Employee ID', customer_id AS 'Customer ID' FROM Pc_orders;"
 
   db.pool.query(queryPcorders, function(error, rows, fields) {
     res.render('pc-orders', {data: rows});
@@ -65,7 +68,7 @@ app.get('/pc-orders', function(req, res) {
 
 app.get('/pc-orders-has-items', function(req, res) {
   
-  let queryPcorders = "SELECT * FROM Pc_orders_has_items;"
+  let queryPcorders = "SELECT sub_order_id AS 'Sub ID', pc_order_id AS 'Order ID', item_id AS 'Item ID', quantity AS 'Quantity' FROM Pc_orders_has_items;"
 
   db.pool.query(queryPcorders, function(error, rows, fields) {
     res.render('pc-orders-has-items', {data: rows});
