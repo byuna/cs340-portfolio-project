@@ -41,7 +41,9 @@ app.get('/customers', function(req, res) {
 
 app.post('/add-customer', function(req, res) {
   let data = req.body;
-  let queryInsertCustomer = 'INSERT INTO Customers (customer_first_name, customer_last_name, customer_phone, customer_email) VALUES ('${data.customer_first_name}', '${data.customer_last_name}', '${data.customer_phone}', '${data.customer_email}');'
+
+  queryInsertCustomer = `INSERT INTO Customers (customer_first_name, customer_last_name, customer_phone, customer_email) VALUES ('${data.customer_first_name}', '${data.customer_last_name}', '${data.customer_phone}', '${data.customer_email}');`
+  
   db.pool.query(queryInsertCustomer, function(error, rows,fields) {
     if (error) {
       console.log(error)

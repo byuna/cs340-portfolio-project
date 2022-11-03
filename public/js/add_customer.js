@@ -54,6 +54,7 @@ addCustomerForm.addEventListener("submit", function (e) {
   xhttp.send(JSON.stringify(data));
 })
 
+
 // Creats a single row from an Object representing a single record from "Customers" table.
 addRowToTable = (data) => {
   
