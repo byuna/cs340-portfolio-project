@@ -28,7 +28,7 @@ app.get('/', function(req, res) {
 });
 
 /*
-Customers page route and select all query.
+Customers page route
 */
 app.get('/customers', function(req, res) {
   
@@ -38,6 +38,32 @@ app.get('/customers', function(req, res) {
     res.render('customers', {data: rows});
   })
 });
+
+app.post('/add-customer', function(req, res) {
+  let data = req.body;
+  let queryInsertCustomer = "INSERT INTO Customers (customer_first_name, customer_last_name, customer_phone, customer_email) VALUES ('${data.customer_first_name}', '${data.customer_last_name}', '${data.customer_phone}', '${data.customer_email}');"
+  db.pool.query(queryInsertCustomer, function(error, rows,fields) {
+    if (error) {
+      console.log(error)
+      res.sendStatus(400);
+    } else {
+      let query1 = 'SELECT * FROM Customers;';
+      db.pool.query(query1, function(error, rows, fields) {
+        if (error) {
+          console.log(error);
+          res.sendStatus(400);
+        } else {
+          res.send(rows);
+        }
+      })
+    }
+  })
+});
+
+
+/*
+Items page route
+*/
 
 app.get('/items', function(req, res) {
   

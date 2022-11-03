@@ -1,3 +1,27 @@
 body {
   background-color: beige;
 }
+
+/*
+Navigation Bar
+*/
+
+.navBar {
+  display: flex;
+  justify-content: space-evenly;
+  list-style: none;
+  border-style: solid;
+  border-width: thin;
+
+  margin: 10px;
+  padding-top: 7px;
+  padding-bottom: 7px
+}
+
+
+.navButton {
+  text-align: center;
+  margin: 20px;
+  text-decoration: none;
+}
+
