@@ -1,6 +1,8 @@
 # CS340_PCDB
 ![App Screenshot](https://i.imgur.com/a5Kcphf.png)
 
+[Link to Project](http://flip1.engr.oregonstate.edu:32147/)
+
 ## SQL Tips
 After SSH into an OSU flip server, login to the SQL server by executing the following command. Replace <<LOGINNAME>LOGINNAME> with the login username.
 ```
