@@ -50,5 +50,23 @@
   <input type="submit">
 </form>
 
+<h2>Filter Items By Types</h2>
+  <p>Use the available drop downs to filter for a certain type of PC!</p>
+<form>
+  <select name="item-format-filter" id="item-format-filter-ajax">
+    <option value="">Filter Items by Format</option>
+    <option value="Desktop">Desktop</option>
+    <option value="Laptop">Laptop</option>
+</select>
+
+<select name="item-purpose-filter" id="item-purpose-filter-ajax">
+    <option value="">Filter Items by Purpose</option>
+    <option value="Gaming">Gaming</option>
+    <option value="Business">Business</option>
+    <option value="Home">Home</option>
+</select>
+<input type="submit">
+</form>
+
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="./js/add_item.js"></script>
