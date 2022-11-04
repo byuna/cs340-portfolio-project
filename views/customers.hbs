@@ -12,7 +12,9 @@
         {{@key}}
       </th>
       {{/each}}
+      <th>Delete</th>
     </tr>
+
   </thead>
 
   
@@ -26,6 +28,7 @@
       <td>{{"Last Name"}}</td>
       <td>{{"Phone Number"}}</td>
       <td>{{"Email Address"}}</td>
+      <td><button onclick="deleteCustomer()">Delete</button></td>
     </tr>
     {{/each}}
   </tbody>
@@ -48,6 +51,31 @@
 
   <input type="submit">
 </form>
+
+<h2>Customer Search</h2>
+<p>Select to a field to search by in the drop down.</p>
+<select name="customer-search" id="customer-search-ajax">
+  <option value="">Select an attribute</option>
+  <option value="customer_id">Customer ID</option>
+  <option value="customer_first_name">First Name</option>
+  <option value="customer_last_name">Last Name</option>
+  <form id="search-customer" method='GET' action='/customers'>
+    <label for='input'></label>
+    <input type="text" name="customer-search" id="input-customer-html-search">
+    <input type="submit">
+    <a href='/customers'><button>Reset</button></a>
+  </form>
+</select>
+
+<h2>Delete Customer by ID</h2>
+<p>Enter a Customer ID to remove the customer from the database.</p>
+<form id="search-customer-html" method='GET' action='/customers'>
+  <label for="input-customer_last_name">Enter Customer ID to delete: </label>
+  <input type="text" name="customer_last_name" id="input-customer_last_name-html-search">
+  <input type="submit">
+  <a href='/customers'><button>Reset</button></a>
+</form>
+
 
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="./js/add_customer.js"></script>

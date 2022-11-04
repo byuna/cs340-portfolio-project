@@ -12,6 +12,7 @@
         {{@key}}
       </th>
       {{/each}}
+      <th>Delete</th>
     </tr>
   </thead>
 
@@ -25,6 +26,7 @@
       <td>{{"Cost"}}</td>
       <td>{{"Format"}}</td>
       <td>{{"Purpose"}}</td>
+      <td><button onclick="deleteItem()">Delete</button></td>
     </tr>
     {{/each}}
   </tbody>

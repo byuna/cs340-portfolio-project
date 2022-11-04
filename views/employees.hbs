@@ -12,6 +12,7 @@
         {{@key}}
       </th>
       {{/each}}
+      <th>Delete</th>
     </tr>
   </thead>
 
@@ -25,6 +26,7 @@
       <td>{{"Last Name"}}</td>
       <td>{{"Phone Number"}}</td>
       <td>{{"Email Address"}}</td>
+      <td><button onclick="deleteEmployee()">Delete</button></td>
     </tr>
     {{/each}}
   </tbody>

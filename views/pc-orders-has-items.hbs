@@ -12,6 +12,7 @@
         {{@key}}
       </th>
       {{/each}}
+      <th>Delete</th>
     </tr>
   </thead>
 
@@ -24,6 +25,7 @@
       <td>{{"Order ID"}}</td>
       <td>{{"Item ID"}}</td>
       <td>{{"Quantity"}}</td>
+      <td><button onclick="deletePcOrderHasItems()">Delete</button></td>
     </tr>
     {{/each}}
   </tbody>
@@ -32,6 +34,24 @@
 <h2>Compiling PC Orders</h2>
 <p>To add more items to a PC order, please fill out the information below and click 'Submit'!</p>
 <form id="add-pc_orders_has_items-form-ajax">
+  <label for="input-pc_order_id">PC order ID: </label>
+  <input type="number" name="input-pc_order_id" id="input-pc_order_id">
+
+  <label for="input-item_id">Item ID: </label>
+  <input type="number" name="input-item_id" id="input-item_id">
+
+  <label for="input-quantity">Quantity: </label>
+  <input type="number" name="input-quantity" id="input-quantity">
+
+  <input type="submit">
+</form>
+
+<h2>Update a PC order Items</h2>
+<p>Please enter the PC Order Sub ID to be udpated and new fields.</p>
+<form id="add-pc_orders_has_items-form-ajax">
+  <label for="input-pc_sub_id">PC order sub ID: </label>
+  <input type="number" name="input-pc_order_id" id="input-pc_order_id">
+
   <label for="input-pc_order_id">PC order ID: </label>
   <input type="number" name="input-pc_order_id" id="input-pc_order_id">
 

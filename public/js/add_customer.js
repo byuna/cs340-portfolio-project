@@ -1,3 +1,5 @@
+/*
+
 // get the object we need to modify.
 let addCustomerForm = document.getElementById('add-customer-form');
 
@@ -93,3 +95,4 @@ addRowToTable = (data) => {
   currentTable.appendChild(row);
 }
 
+*/
