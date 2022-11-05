@@ -1,3 +1,4 @@
+-- DML FILE
 -- These are some Database Manipulation queries for a partially implemented PC Store 
 -- Project Website using the Tran-Byun PC Suppliers database.
 SET foreign_key_checks = 0;
@@ -9,6 +10,23 @@ SELECT employee_id AS ID,
     employee_email as "Email Address"
 FROM Employees;
 
+-- Shows a list of all employees and their information
+SELECT * FROM Employees;
+
+-- Shows a list of all the customers and their information
+SELECT * FROM Customers;
+
+-- Shows all the Pc_orders that have been placed
+SELECT * FROM Pc_orders;
+
+-- Showing the quantities of an item from each order
+SELECT * FROM Pc_orders_has_items;
+
+-- Shows a list of all the items available for purchasing
+SELECT * From Items;
+
+-- SELECT 
+
 -- Get a list of all customers who have placed an order within the last 3 months
 SELECT CONCAT(customer_first_name, ' ', customer_last_name) AS "Customer Name",
     Pc_orders.order_date AS "Order Date",
@@ -16,6 +34,12 @@ SELECT CONCAT(customer_first_name, ' ', customer_last_name) AS "Customer Name",
 FROM Customers
     INNER JOIN Pc_orders on Pc_orders.customer_id = Customers.customer_id
 WHERE Pc_orders.order_date > DATE(NOW() - INTERVAL 3 MONTH);
+
+
+-- Search from a Dynamically populated list; items that meet a certain purpose.
+-- See all available items that meets their purpose (business, gaming, etc.)
+SELECT * FROM Items
+WHERE Items.pc_format = :pc_format:type;
 
 -- Add a new customer
 INSERT Customers (
@@ -44,6 +68,43 @@ VALUES (
         :employeePhoneNumber
     );
 
+-- Add a new pc related item to the store
+INSERT Items (
+    item_description,
+    item_cost,
+    pc_format,
+    pc_purpose
+  )
+VALUES (
+    :item_description,
+    :item_cost,
+    :pc_format,
+    :pc_purpose
+  );
+
+-- Add an item to an order by pc purpose and quantity
+Insert INTO Pc_orders_has_items (pc_order_id, item_id, quantity)
+VALUES (
+    :pc_order_id,
+    (
+      SELECT item_id
+      from Items
+      WHERE pc_purpose = :pc_purpose
+    ),
+    :item_quantity
+    );
+
+-- Create a new Pc_order
+Insert INTO Pc_orders (order_date, cost, customer_id)
+VALUES (
+    :current_date,
+    :total_cost,
+    (
+      SELECT customer_id
+      FROM Customers
+      WHERE customer_id = :customer_id
+    )
+);
 
 -- Delete old customer
 DELETE FROM Customers WHERE customer_id = :customer_id_entered_by_user;
@@ -59,7 +120,7 @@ DELETE FROM Pc_orders_has_items where item_id = :someItemID
 
 -- Update item quantity from a specific order
 UPDATE Pc_orders_has_items
-SET quantity = :quantiy_entered_by_user
+SET quantity = :quantity_entered_by_user
 WHERE pc_order_id = :pc_order_id
 
 -- Show items and their sub totals from a specific order id
