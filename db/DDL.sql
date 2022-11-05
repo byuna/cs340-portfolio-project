@@ -188,7 +188,7 @@ VALUES (
       from Items
       WHERE pc_purpose = "home"
     ),
-    5
+    1
   ),
   (
     5000002,
@@ -221,4 +221,3 @@ SELECT *
 FROM Pc_orders_has_items;
 SET FOREIGN_KEY_CHECKS = 1;
 COMMIT;
-
