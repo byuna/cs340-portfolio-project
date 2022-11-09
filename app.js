@@ -131,6 +131,40 @@ app.post('/add-employee-ajax', function(req, res) {
   })
 });
 
+app.delete('/delete-employee-ajax/', function(req,res,next){
+  let data = req.body;
+  let employeeID = parseInt(data.employee_id);
+  let deleteEmployee_EmployeeTable = `DELETE FROM Employees WHERE employee_id = ?`;
+
+  let deleteBsg_People= `DELETE FROM bsg_people WHERE id = ?`;
+
+
+        // Run the 1st query
+        db.pool.query(deleteEmployee_EmployeeTable, [employeeID], function(error, rows, fields){
+            if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+            }
+
+            else
+            {
+              res.sendStatus(204);
+                // Run the second query
+                // db.pool.query(deleteBsg_People, [personID], function(error, rows, fields) {
+
+                //     if (error) {
+                //         console.log(error);
+                //         res.sendStatus(400);
+                //     } else {
+                //         res.sendStatus(204);
+                //     }
+                // })
+            }
+})});
+
+// Pc_orders page routes
 app.get('/pc-orders', function(req, res) {
   
   let queryPcorders = "SELECT pc_order_id AS 'Order ID', order_date AS 'Order Date', cost AS 'Cost', employee_id AS 'Employee ID', customer_id AS 'Customer ID' FROM Pc_orders;"
@@ -140,6 +174,7 @@ app.get('/pc-orders', function(req, res) {
   })
 });
 
+// Pc_orders_has_items page routes
 app.get('/pc-orders-has-items', function(req, res) {
   
   let queryPcorders = "SELECT sub_order_id AS 'Sub ID', pc_order_id AS 'Order ID', item_id AS 'Item ID', quantity AS 'Quantity' FROM Pc_orders_has_items;"
