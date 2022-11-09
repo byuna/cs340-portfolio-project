@@ -221,4 +221,3 @@ SELECT *
 FROM Pc_orders_has_items;
 SET FOREIGN_KEY_CHECKS = 1;
 COMMIT;
-

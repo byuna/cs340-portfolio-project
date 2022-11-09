@@ -1,5 +1,3 @@
-/*
-
 // get the object we need to modify.
 let addCustomerForm = document.getElementById('add-customer-form');
 
@@ -38,7 +36,7 @@ addCustomerForm.addEventListener("submit", function (e) {
   xhttp.onreadystatechange = () => {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
 
-      // Add the new datat to the table
+      // Add the new data to the table
       addRowToTable(xhttp.response);
 
       // Clear the input fields for another transaction.
@@ -56,10 +54,8 @@ addCustomerForm.addEventListener("submit", function (e) {
   xhttp.send(JSON.stringify(data));
 })
 
-
 // Creats a single row from an Object representing a single record from "Customers" table.
 addRowToTable = (data) => {
-  
   // Get a reference to the current table on the page and clear it out.
   let currentTable = document.getElementById('customers-table');
 
@@ -68,7 +64,7 @@ addRowToTable = (data) => {
 
   // Get a reference to the new row from the database query (last object).
   let parsedData = JSON.parse(data);
-  let newRow = parsedData[parsedData.lengh - 1];
+  let newRow = parsedData[parsedData.length - 1]                    // Fixed typo "lengh" - > "length";
 
   // Create a row and 5 cells.
   let row = document.createElement("TR");
@@ -77,9 +73,9 @@ addRowToTable = (data) => {
   let customerLastNameCell = document.createElement("TD");
   let customerPhoneCell = document.createElement("TD");
   let customerEmailCell = document.createElement("TD");
-  
+
   // Fill the cells with the correct data.
-  customerIdCell.innerText = newRow.cusotmer_id;
+  customerIdCell.innerText = newRow.customer_id;                    // Fixed typo "cusotmer_id" -> "customer_id"
   customerFirstNameCell.innerText = newRow.customer_first_name;
   customerLastNameCell.innerText = newRow.customer_last_name;
   customerPhoneCell.innerText = newRow.customer_phone;
@@ -89,10 +85,9 @@ addRowToTable = (data) => {
   row.appendChild(customerIdCell);
   row.appendChild(customerFirstNameCell);
   row.appendChild(customerLastNameCell);
-  row.appendChild(customer.customerPhoneCell);
+  row.appendChild(customerPhoneCell);                               // Fixed sytnax error "customer.customerPhoneCell" -> "customerPhoneCell"
   row.appendChild(customerEmailCell);
 
   currentTable.appendChild(row);
 }
 
-*/
