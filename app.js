@@ -16,15 +16,15 @@ app.engine('.hbs', engine({extname: ".hbs"}));      // Create an instance of the
 app.set('view engine', '.hbs');                     // Tell express to use the handlebars engine whenever it encounters a *.hbs file.
 app.use(express.static(__dirname + '/public'));
 
-// Database
+// DATABASE
 var db = require('./db/db-connector');
 
-/*  ROUTES */
+// ROUTES
 app.get('/', function(req, res) {
   res.render('index');
 });
 
-/* Customers page route */
+// CUSTOMERS PAGE ROUTE
 app.get('/customers', function(req, res) {
   let queryCustomers = "SELECT customer_id AS 'Customer ID', customer_first_name AS 'First Name', customer_last_name AS 'Last Name', customer_phone AS 'Phone Number', customer_email AS 'Email Address' FROM Customers;"
 
@@ -58,7 +58,7 @@ app.post('/add-customer', function(req, res) {
 });
 
 
-// Items page route
+// ITEMS PAGE ROUTE
 app.get('/items', function(req, res) {
   
   let queryItems = "SELECT item_id AS 'Item ID', item_description AS 'Description', item_cost AS 'Cost', pc_format AS 'Format', pc_purpose AS 'Purpose' FROM Items;"
@@ -69,21 +69,21 @@ app.get('/items', function(req, res) {
 });
 
 
-// Employees page routes
+// EMPLOYEES PAGE ROUTE
 app.get('/employees', function(req, res) {
   
-  let queryEmployees = "SELECT employee_id AS 'Employee ID', employee_first_name AS 'First Name', employee_last_name AS 'Last Name', employee_phone AS 'Phone Number', employee_email AS 'Email Address' FROM Employees;"
+  let querySelectAllEmployees = "SELECT employee_id AS 'Employee ID', employee_first_name AS 'First Name', employee_last_name AS 'Last Name', employee_phone AS 'Phone Number', employee_email AS 'Email Address' FROM Employees;"
 
-  db.pool.query(queryEmployees, function(error, rows, fields) {
+  db.pool.query(querySelectAllEmployees, function(error, rows, fields) {
     res.render('employees', {data: rows});
   })
 });
 
 
-app.post('/add-employee-ajax', function(req, res) {
+app.post('/add-employee', function(req, res) {
   let data = req.body;
-  query1 = `INSERT INTO Employees (employee_first_name, employee_last_name, employee_phone, employee_email) VALUES ('${data.employee_first_name}', '${data.employee_last_name}', ${data.employee_phone}', ${data.employee_email}')`;
-  db.pool.query(query1, function(error, rows, fields) {
+  queryInsertEmployee = `INSERT INTO Employees (employee_first_name, employee_last_name, employee_phone, employee_email) VALUES ('${data.employee_first_name}', '${data.employee_last_name}', '${data.employee_phone}', '${data.employee_email}')`;
+  db.pool.query(queryInsertEmployee, function(error, rows, fields) {
     if (error) {
       console.log(error);
       res.sendStatus(400);
