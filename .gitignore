@@ -2,3 +2,5 @@
 /database/db-connector.js
 /db/db-connector.js
 /db/test.sql
+/package-lock.json
+/package.json

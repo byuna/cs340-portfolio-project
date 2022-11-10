@@ -20,13 +20,13 @@
   {{!-- Body section --}}
   <tbody>
     {{#each data}}
-    <tr>
+    <tr data-value={{"Employee ID"}}></tr>
       <td>{{"Employee ID"}}</td>
       <td>{{"First Name"}}</td>
       <td>{{"Last Name"}}</td>
       <td>{{"Phone Number"}}</td>
       <td>{{"Email Address"}}</td>
-      <td><button onclick="deleteEmployee()">Delete</button></td>
+      <td><button onclick="deleteEmployee({{"Employee ID"}})">Delete</button></td>
     </tr>
     {{/each}}
   </tbody>
@@ -43,12 +43,19 @@
 
   <label for="input-employee_phone">Phone number: </label>
   <input type="text" name="input-employee_phone" id="input-employee_phone">
-
+<select name="" id="" disabled="disabled"></select>
   <label for="input-employee_email">Email address: </label>
   <input type="text" name="input-employee_email" id="input-employee_email">
 
   <input type="submit">
 </form>
 
+
+{{!-- Delete Script --}}
+<script src="./js/delete_employee.js"></script>
+
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="./js/add_employee.js"></script>
+
+{{!-- jQuery Delete Request Option
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> --}}

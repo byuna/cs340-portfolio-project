@@ -34,8 +34,8 @@ CREATE TABLE Pc_orders (
   employee_id int,
   customer_id int not NULL,
   PRIMARY KEY (pc_order_id),
-  FOREIGN KEY (employee_id) REFERENCES Employees(employee_id) ON DELETE RESTRICT,
-  FOREIGN KEY (customer_id) REFERENCES Customers(customer_id) ON DELETE RESTRICT
+  FOREIGN KEY (employee_id) REFERENCES Employees(employee_id) ON DELETE SET NULL,
+  FOREIGN KEY (customer_id) REFERENCES Customers(customer_id) ON DELETE CASCADE
 
 );
 
@@ -56,7 +56,7 @@ CREATE TABLE Pc_orders_has_items (
   item_id int not NULL,
   quantity int not NULL,
   FOREIGN KEY (pc_order_id) REFERENCES Pc_orders(pc_order_id) ON DELETE CASCADE,
-  FOREIGN KEY (item_id) REFERENCES Items(item_id) ON DELETE RESTRICT,
+  FOREIGN KEY (item_id) REFERENCES Items(item_id) ON DELETE CASCADE,
   PRIMARY KEY (sub_order_id)
 
 );
@@ -111,19 +111,19 @@ INSERT Items (
   )
 VALUES (
     'The next gen portable gaming Laptop!',
-    3500,
+    3500.00,
     'laptop',
     'gaming'
   ),
   (
     'Intellitron 5000 for Businesses!',
-    5000,
+    5000.00,
     'desktop',
     'business'
   ),
   (
     'The best do it all for family homes!',
-    1500,
+    1500.00,
     'desktop',
     'home'
   );
