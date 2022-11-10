@@ -68,6 +68,36 @@ app.get('/items', function(req, res) {
   })
 });
 
+app.post('/add-item-ajax', function(req, res) {
+  let data = req.body;
+
+  let cost = parseFloat(data.item_cost);
+  if (isNaN(cost))
+  {
+      console.log("Invalid parameter for float type.")
+      res.sendStatus(400);
+  }
+
+  query1 = `INSERT INTO Items (item_description, item_cost, pc_format, pc_purpose) VALUES ('${data.item_description}', '${data.item_cost}', '${data.pc_format}', '${data.pc_purpose}')`;
+  db.pool.query(query1, function(error, rows, fields) {
+    if (error) {
+      console.log(error);
+      res.sendStatus(400);
+    } else {
+      allItemsQuery = `SELECT * FROM Items;`;
+      db.pool.query(allItemsQuery, function(error, rows, fields) {
+        if (error) {
+          console.log(error);
+          res.sendStatus(400);
+        } else {
+          res.send(rows);
+        }
+      })
+    }
+  })
+});
+
+
 
 // EMPLOYEES PAGE ROUTE
 app.get('/employees', function(req, res) {
