@@ -1,4 +1,4 @@
-function deletePerson(employeeID) {
+function deleteEmployee(employeeID) {
     // Put our data we want to send in a javascript object
     let data = {
         id: employeeID
