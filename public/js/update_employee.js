@@ -51,5 +51,3 @@ function updateRow(data, employeeId) {
     }
   }
 }
-
-// need to delete row 23 on employees.hbs.
