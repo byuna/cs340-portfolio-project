@@ -96,13 +96,17 @@ app.post('/add-item-ajax', function (req, res) {
 });
 
 
-
 // EMPLOYEES PAGE ROUTE
 app.get('/employees', function(req, res) {
-  
-  let querySelectAllEmployees = "SELECT employee_id AS 'Employee ID', employee_first_name AS 'First Name', employee_last_name AS 'Last Name', employee_phone AS 'Phone Number', employee_email AS 'Email Address' FROM Employees;"
+  let query1;
+  // If there is no query string, we just perform a basic SELECT.
+  if (req.query.lname === undefined) {
+    query1 = "SELECT employee_id AS 'Employee ID', employee_first_name AS 'First Name', employee_last_name AS 'Last Name', employee_phone AS 'Phone Number', employee_email AS 'Email Address' FROM Employees;"
+  } else {
+    query1 = `SELECT employee_id AS 'Employee ID', employee_first_name AS 'First Name', employee_last_name AS 'Last Name', employee_phone AS 'Phone Number', employee_email AS 'Email Address' FROM Employees WHERE employee_last_name LIKE "${req.query.lname}%";`
+  }
 
-  db.pool.query(querySelectAllEmployees, function(error, rows, fields) {
+  db.pool.query(query1, function(error, rows, fields) {
     res.render('employees', {data: rows});
   })
 });
@@ -175,7 +179,13 @@ app.put('/put-employee', function(req, res, next) {
   })
 });
 
-// Pc_orders page routes
+
+
+
+
+
+
+// PC_ORDERS PAGE ROUTES
 app.get('/pc-orders', function (req, res) {
 
   let queryPcorders = "SELECT pc_order_id AS 'Order ID', order_date AS 'Order Date', cost AS 'Cost', employee_id AS 'Employee ID', customer_id AS 'Customer ID' FROM Pc_orders;"

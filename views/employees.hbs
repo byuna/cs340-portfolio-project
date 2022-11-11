@@ -66,6 +66,21 @@
   <input type="submit">
 </form>
 
+<h2>Employee Search</h2>
+<p>Search by last name using the field below. Partial last names are okay too!</p>
+<form id="search-employee-html" method='GET' action='/employees'>
+  <label for="input-lname">Search by Last Name: </label>
+  <input type="text" name="lname" id="input-lname-html-search">
+
+  <input type="submit">
+  <a href='/employees'><button>Reset</button></a>
+</form>
+
+
+
+
+
+
 {{!-- Update Script --}}
 <script src="./js/update_employee.js"></script>
 
