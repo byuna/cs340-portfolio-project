@@ -132,7 +132,7 @@ app.post('/add-employee', function(req, res) {
   })
 });
 
-app.delete('/delete-employee-ajax/', function (req, res, next) {
+app.delete('/delete-employee-ajax/', function (req, res) {
   let data = req.body;
   let employeeID = parseInt(data.id);
   let deleteEmployee_EmployeeTable = `DELETE FROM Employees WHERE employee_id = ?`;
@@ -153,7 +153,7 @@ app.delete('/delete-employee-ajax/', function (req, res, next) {
   })
 });
 
-app.put('/put-employee', function(req, res, next) {
+app.put('/put-employee', function(req, res) {
   let data = req.body;
 
   let phone = data.employee_phone;

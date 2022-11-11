@@ -44,9 +44,9 @@ function updateRow(data, employeeId) {
   for (let i = 0, row; row = table.rows[i]; i++) {
     if (table.rows[i].getAttribute("data-value") == employeeId) {
       let updateRowIndex = table.getElementsByTagName("TR")[i + 1];       // updateRowIndex = <tr data-value="1">
-
       let td = updateRowIndex.getElementsByTagName("td")[3];
-      td.innerHTML = parsedData[employeeId - 1].employee_phone;
+      let newNumber = parsedData[i - 1].employee_phone;
+      td.innerHTML = newNumber;
     }
   }
 }
