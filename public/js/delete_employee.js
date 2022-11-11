@@ -34,6 +34,7 @@ function deleteRow(employeeID){
        //rows would be accessed using the "row" variable assigned in the for loop
        if (table.rows[i].getAttribute("data-value") == employeeID) {
             table.deleteRow(i);
+            console.log(i);                             // testing
             break;
        }
     }

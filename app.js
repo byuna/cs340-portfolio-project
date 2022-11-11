@@ -19,7 +19,6 @@ app.use(express.static(__dirname + '/public'));
 // DATABASE
 var db = require('./db/db-connector');
 
-<<<<<<< HEAD
 // ROUTES
 app.get('/', function(req, res) {
   res.render('index');
@@ -27,15 +26,6 @@ app.get('/', function(req, res) {
 
 // CUSTOMERS PAGE ROUTE
 app.get('/customers', function(req, res) {
-=======
-/*  ROUTES */
-app.get('/', function (req, res) {
-  res.render('index');
-});
-
-/* Customers page route */
-app.get('/customers', function (req, res) {
->>>>>>> 8f5c85a36bb92bee5f6d32d4f975900d18b745d7
   let queryCustomers = "SELECT customer_id AS 'Customer ID', customer_first_name AS 'First Name', customer_last_name AS 'Last Name', customer_phone AS 'Phone Number', customer_email AS 'Email Address' FROM Customers;"
 
   db.pool.query(queryCustomers, function (error, rows, fields) {
@@ -68,15 +58,9 @@ app.post('/add-customer', function (req, res) {
 });
 
 
-<<<<<<< HEAD
 // ITEMS PAGE ROUTE
 app.get('/items', function(req, res) {
   
-=======
-// Items page route
-app.get('/items', function (req, res) {
-
->>>>>>> 8f5c85a36bb92bee5f6d32d4f975900d18b745d7
   let queryItems = "SELECT item_id AS 'Item ID', item_description AS 'Description', item_cost AS 'Cost', pc_format AS 'Format', pc_purpose AS 'Purpose' FROM Items;"
 
   db.pool.query(queryItems, function (error, rows, fields) {
@@ -114,7 +98,6 @@ app.post('/add-item-ajax', function (req, res) {
 
 
 
-<<<<<<< HEAD
 // EMPLOYEES PAGE ROUTE
 app.get('/employees', function(req, res) {
   
@@ -122,30 +105,14 @@ app.get('/employees', function(req, res) {
 
   db.pool.query(querySelectAllEmployees, function(error, rows, fields) {
     res.render('employees', {data: rows});
-=======
-// Employees page routes
-app.get('/employees', function (req, res) {
-
-  let queryEmployees = "SELECT employee_id AS 'Employee ID', employee_first_name AS 'First Name', employee_last_name AS 'Last Name', employee_phone AS 'Phone Number', employee_email AS 'Email Address' FROM Employees;"
-
-  db.pool.query(queryEmployees, function (error, rows, fields) {
-    res.render('employees', { data: rows });
->>>>>>> 8f5c85a36bb92bee5f6d32d4f975900d18b745d7
   })
 });
 
 
-<<<<<<< HEAD
 app.post('/add-employee', function(req, res) {
   let data = req.body;
   queryInsertEmployee = `INSERT INTO Employees (employee_first_name, employee_last_name, employee_phone, employee_email) VALUES ('${data.employee_first_name}', '${data.employee_last_name}', '${data.employee_phone}', '${data.employee_email}')`;
   db.pool.query(queryInsertEmployee, function(error, rows, fields) {
-=======
-app.post('/add-employee-ajax', function (req, res) {
-  let data = req.body;
-  query1 = `INSERT INTO Employees (employee_first_name, employee_last_name, employee_phone, employee_email) VALUES ('${data.employee_first_name}', '${data.employee_last_name}', '${data.employee_phone}', '${data.employee_email}')`;
-  db.pool.query(query1, function (error, rows, fields) {
->>>>>>> 8f5c85a36bb92bee5f6d32d4f975900d18b745d7
     if (error) {
       console.log(error);
       res.sendStatus(400);

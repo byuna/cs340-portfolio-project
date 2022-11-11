@@ -54,8 +54,8 @@ addRowToTable = (data) => {
   let employeeLastName = document.createElement("TD");
   let employeePhone = document.createElement("TD");
   let employeeEmail = document.createElement("TD");
-  let employeeDeleteButton = document.createElement("button");
-  let buttonText = document.createElement("button");
+
+  let employeeDeleteButton = document.createElement("TD");
 
   employeeIdCell.innerText = newRow.employee_id;
   employeeFirstName.innerText = newRow.employee_first_name;
@@ -63,12 +63,20 @@ addRowToTable = (data) => {
   employeePhone.innerText = newRow.employee_phone;
   employeeEmail.innerText = newRow.employee_email;
 
+  employeeDeleteButton = document.createElement("button");
+  employeeDeleteButton.innerHTML = "Delete";
+  employeeDeleteButton.onclick = function() {
+    deleteEmployee(newRow.employee_id);
+  }
+
   row.appendChild(employeeIdCell);
   row.appendChild(employeeFirstName);
   row.appendChild(employeeLastName);
   row.appendChild(employeePhone);
   row.appendChild(employeeEmail);
-  employeeDeleteButton.appendChild(buttonText);
   row.appendChild(employeeDeleteButton);
+
+  row.setAttribute('data-value', newRow.employee_id);
+  
   currentTable.appendChild(row);
 }
