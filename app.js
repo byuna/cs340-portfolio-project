@@ -180,15 +180,30 @@ app.put('/put-employee', function(req, res, next) {
 });
 
 
-
-
-
-
-
 // PC_ORDERS PAGE ROUTES
 app.get('/pc-orders', function (req, res) {
 
-  let queryPcorders = "SELECT pc_order_id AS 'Order ID', order_date AS 'Order Date', cost AS 'Cost', employee_id AS 'Employee ID', customer_id AS 'Customer ID' FROM Pc_orders;"
+  let queryPcorders =   `SELECT Pc_orders.pc_order_id AS 'Order ID', DATE(Pc_orders.order_date) AS 'Purchase Date', CONCAT(
+    Customers.customer_first_name,
+    ' ',
+    Customers.customer_last_name
+) AS 'Customer',
+CONCAT(
+    Employees.employee_first_name,
+    ' ',
+    Employees.employee_last_name
+) AS 'Helped By',
+CONCAT(Items.pc_purpose, ' ', Items.pc_format) AS 'Product',
+Pc_orders_has_items.quantity AS 'Quantity',
+CONCAT(
+    '$ ',
+    Pc_orders_has_items.quantity * Items.item_cost
+) AS 'Sub-Total'
+FROM Pc_orders
+Join Pc_orders_has_items using (pc_order_id)
+Join Customers using (customer_id)
+Join Employees using (employee_id)
+Join Items using (item_id);`
 
   db.pool.query(queryPcorders, function (error, rows, fields) {
     res.render('pc-orders', { data: rows });
