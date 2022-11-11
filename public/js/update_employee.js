@@ -43,10 +43,13 @@ function updateRow(data, employeeId) {
 
   for (let i = 0, row; row = table.rows[i]; i++) {
     if (table.rows[i].getAttribute("data-value") == employeeId) {
-      let updateRowIndex = table.getElementsByTagName("TR")[i + 1];       // updateRowIndex = <tr data-value="1">
+      let updateRowIndex = table.getElementsByTagName("TR")[i];
       let td = updateRowIndex.getElementsByTagName("td")[3];
       let newNumber = parsedData[i - 1].employee_phone;
+      console.log(newNumber);
       td.innerHTML = newNumber;
     }
   }
 }
+
+// need to delete row 23 on employees.hbs.
