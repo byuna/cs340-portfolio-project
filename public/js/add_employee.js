@@ -79,4 +79,9 @@ addRowToTable = (data) => {
   row.setAttribute('data-value', newRow.employee_id);
   
   currentTable.appendChild(row);
+
+  let SelectMenu = document.getElementById("mySelect");
+  let option = document.createElement("option");
+  option.text = newRow.employee_first_name + ' ' + newRow.employee_last_name;
+  option.value = newRow.employee_id;
 }

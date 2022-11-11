@@ -50,6 +50,24 @@
   <input type="submit">
 </form>
 
+<h2>Updating an Employee's Phone Number</h2>
+<p> To update an employee's number, select their name from the drop down and input a new number to update to.</p>
+<form id="update-employee-form">
+  <label for="input-fullname">Full Name: </label>
+  <select name="input-fullname" id="mySelect">
+    <option value="test">Select an Employee</option>
+    {{#each data}}
+    <option value="{{"Employee ID"}}">{{"First Name"}} {{"Last Name"}}</option>
+    {{/each}}
+  </select>
+
+  <label for="input-phone">Phone Number: </label>
+  <input type="text" name="input-employee_phone-update" id="input-employee_phone-update">
+  <input type="submit">
+</form>
+
+{{!-- Update Script --}}
+<script src="./js/update_employee.js"></script>
 
 {{!-- Delete Script --}}
 <script src="./js/delete_employee.js"></script>

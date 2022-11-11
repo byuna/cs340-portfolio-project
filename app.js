@@ -33,7 +33,6 @@ app.get('/customers', function(req, res) {
   })
 });
 
-
 app.post('/add-customer', function (req, res) {
   let data = req.body;
 
@@ -108,7 +107,6 @@ app.get('/employees', function(req, res) {
   })
 });
 
-
 app.post('/add-employee', function(req, res) {
   let data = req.body;
   queryInsertEmployee = `INSERT INTO Employees (employee_first_name, employee_last_name, employee_phone, employee_email) VALUES ('${data.employee_first_name}', '${data.employee_last_name}', '${data.employee_phone}', '${data.employee_email}')`;
@@ -149,6 +147,32 @@ app.delete('/delete-employee-ajax/', function (req, res, next) {
       res.sendStatus(204);
     }
 
+  })
+});
+
+app.put('/put-employee', function(req, res, next) {
+  let data = req.body;
+
+  let phone = data.employee_phone;
+  let employee = parseInt(data.fullName);
+
+  let queryUpdatePhone = `UPDATE Employees SET employee_phone = ? where Employees.employee_id = ?`;
+  let querySelectAllEmployees = `SELECT * FROM Employees;`
+  db.pool.query(queryUpdatePhone, [phone, employee], function(error, rows, fields) {
+
+    if (error) {
+      console.log(error);
+      res.sendStatus(400);
+    } else {
+      db.pool.query(querySelectAllEmployees, function(error, rows, fields) {
+        if (error) {
+          console.log(error);
+          res.sendStatus(400);
+        } else {
+          res.send(rows);
+        }
+      })
+    }
   })
 });
 
