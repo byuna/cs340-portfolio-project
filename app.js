@@ -143,7 +143,6 @@ app.delete('/delete-employee-ajax/', function (req, res, next) {
       // Since we are just deleting 1 row and don't need to send back any 
       // new data we will send back a status of 204 (No Content) common 
       // for PUT or DELETE.
-      console.log(`Deleted employee with ID: ${employeeID}`);
       res.sendStatus(204);
     }
 

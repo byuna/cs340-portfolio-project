@@ -55,7 +55,7 @@ addRowToTable = (data) => {
   let employeePhone = document.createElement("TD");
   let employeeEmail = document.createElement("TD");
 
-  let employeeDeleteButton = document.createElement("TD");
+  let employeeDeleteCell = document.createElement("TD");
 
   employeeIdCell.innerText = newRow.employee_id;
   employeeFirstName.innerText = newRow.employee_first_name;
@@ -74,7 +74,8 @@ addRowToTable = (data) => {
   row.appendChild(employeeLastName);
   row.appendChild(employeePhone);
   row.appendChild(employeeEmail);
-  row.appendChild(employeeDeleteButton);
+  row.appendChild(employeeDeleteCell);
+  employeeDeleteCell.appendChild(employeeDeleteButton);
 
   row.setAttribute('data-value', newRow.employee_id);
   

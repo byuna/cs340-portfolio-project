@@ -30,9 +30,15 @@ function deleteRow(employeeID){
 
     let table = document.getElementById("employees-table");
     for (let i = 0, row; row = table.rows[i]; i++) {
+      console.log(i);
+      console.log(table.rows[0]);
+      console.log("");
+
+
        //iterate through rows
        //rows would be accessed using the "row" variable assigned in the for loop
        if (table.rows[i].getAttribute("data-value") == employeeID) {
+            console.log(i);
             table.deleteRow(i);                                                           // Row doesn't get removed until page is refreshed.
             break;
        }
