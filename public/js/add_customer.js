@@ -74,6 +74,8 @@ addRowToTable = (data) => {
   let customerPhoneCell = document.createElement("TD");
   let customerEmailCell = document.createElement("TD");
 
+  let customerDeleteCell = document.createElement("TD");
+
   // Fill the cells with the correct data.
   customerIdCell.innerText = newRow.customer_id;                    // Fixed typo "cusotmer_id" -> "customer_id"
   customerFirstNameCell.innerText = newRow.customer_first_name;
@@ -81,12 +83,22 @@ addRowToTable = (data) => {
   customerPhoneCell.innerText = newRow.customer_phone;
   customerEmailCell.innerText = newRow.customer_email;
 
+  customerDeleteButton = document.createElement("button");
+  customerDeleteButton.innerHTML = "Delete";
+  customerDeleteButton.onclick = function() {
+    deleteCustomer(newRow.customer_id);
+  }
+
   // Add the cells to the row.
   row.appendChild(customerIdCell);
   row.appendChild(customerFirstNameCell);
   row.appendChild(customerLastNameCell);
   row.appendChild(customerPhoneCell);                               // Fixed sytnax error "customer.customerPhoneCell" -> "customerPhoneCell"
   row.appendChild(customerEmailCell);
+  row.appendChild(customerDeleteCell);
+  customerDeleteCell.appendChild(customerDeleteButton);
+
+  row.setAttribute('data-value', newRow.customer_id);
 
   currentTable.appendChild(row);
 }
