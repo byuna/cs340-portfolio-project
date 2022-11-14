@@ -1,0 +1,5 @@
+1. Update drop down lists to dynamically update without refresh when row is deleted.
+2. Clear out fields after a query has been sucessfully run.
+3. Items INSERT does not update table.
+4. Add Dropdown for adding items. Platform and Purpose
+5. Delete button when customer added to table.
