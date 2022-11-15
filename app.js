@@ -56,6 +56,22 @@ app.post('/add-customer', function (req, res) {
   })
 });
 
+app.delete('/delete-customer-ajax/', function(req, res, next) {
+  let data = req.body;
+  let customerId = parseInt(data.id);
+  let deleteCustomer = `DELETE FROM Customers WHERE customer_id = ?`;
+
+  db.pool.query(deleteCustomer, [customerId], function(error, rows, fields) {
+    if (error) {
+      console.log(error);
+      console.log("almost there");
+      res.sendStatus(400);
+    } else {
+      res.sendStatus(204);
+    }
+  })
+});
+
 
 // ITEMS PAGE ROUTE
 app.get('/items', function(req, res) {
