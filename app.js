@@ -111,6 +111,21 @@ app.post('/add-item-ajax', function (req, res) {
   })
 });
 
+app.delete('/delete-item-ajax/', function(req, res, next) {
+  let data = req.body;
+  let itemId = parseInt(data.id);
+  let deleteItem = `DELETE FROM Items WHERE item_id = ?`;
+
+  db.pool.query(deleteItem, [itemId], function(error, rows, fields) {
+    if (error) {
+      console.log(error);
+      res.sendStatus(400);
+    } else {
+      res.sendStatus(204);
+    }
+  })
+});
+
 
 // EMPLOYEES PAGE ROUTE
 app.get('/employees', function(req, res) {

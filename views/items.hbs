@@ -20,13 +20,13 @@
   {{!-- Body section --}}
   <tbody>
     {{#each data}}
-    <tr>
+    <tr data-value="{{"Item ID"}}">
       <td>{{"Item ID"}}</td>
       <td>{{"Description"}}</td>
       <td>{{"Cost"}}</td>
       <td>{{"Format"}}</td>
       <td>{{"Purpose"}}</td>
-      <td><button onclick="deleteItem()">Delete</button></td>
+      <td><button onclick="deleteItem({{"Item ID"}})">Delete</button></td>
     </tr>
     {{/each}}
   </tbody>
@@ -70,3 +70,6 @@
 
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="./js/add_item.js"></script>
+
+{{!-- Delete Script --}}
+<script src="./js/delete_item.js"></script>
