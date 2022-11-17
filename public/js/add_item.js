@@ -1,6 +1,6 @@
-let addEmployeeForm = document.getElementById('add-item-form-ajax');
+let addItemForm = document.getElementById('add-item-form-ajax');
 
-addEmployeeForm.addEventListener("submit", function (e) {
+addItemForm.addEventListener("submit", function (e) {
   e.preventDefault();
 
   let inputItemDescription = document.getElementById("input-item_description");
@@ -20,6 +20,13 @@ addEmployeeForm.addEventListener("submit", function (e) {
     pc_purpose: itemPcPurposeValue
   };
 
+  // let data = {
+  //   item_description: inputItemDescription.value,
+  //   item_cost: inputItemCost.value,
+  //   pc_format: inputPcFormat.value,
+  //   pc_purpose: inputPcPurpose.value
+  // };
+
   var xhttp = new XMLHttpRequest();
   xhttp.open("POST", "/add-item-ajax", true);
   xhttp.setRequestHeader("Content-type", "application/json");
@@ -36,3 +43,47 @@ addEmployeeForm.addEventListener("submit", function (e) {
   }
   xhttp.send(JSON.stringify(data));
 })
+
+
+// Adding a New Item 
+addRowToTable = (data) => {
+  let currentTable = document.getElementById("items-table");
+
+  // may not need
+  let newRowIndex = currentTable.rows.length;
+
+  let parsedData = JSON.parse(data);
+  let newRow = parsedData[parsedData.length - 1];
+
+  let row = document.createElement("TR");
+  let itemIdCell = document.createElement("TD");
+  let itemDescriptionCell = document.createElement("TD");
+  let itemCostCell = document.createElement("TD");
+  let pcFormatCell = document.createElement("TD");
+  let pcPurposeCell = document.createElement("TD");
+  let itemDeleteCell = document.createElement("TD");
+
+  itemIdCell.innerText = newRow.item_id;
+  itemDescriptionCell.innerText = newRow.item_description;
+  itemCostCell.innerText = newRow.item_cost;
+  pcFormatCell.innerText = newRow.pc_format;
+  pcPurposeCell.innerText = newRow.pc_purpose;
+
+  itemDeleteButton = document.createElement("button");
+  itemDeleteButton.innerHTML = "Delete";
+  itemDeleteButton.onclick = function () {
+    deleteItem(newRow.item_id);
+  }
+
+  row.appendChild(itemIdCell);
+  row.appendChild(itemDescriptionCell);
+  row.appendChild(itemCostCell);
+  row.appendChild(pcFormatCell);
+  row.appendChild(pcPurposeCell);
+  row.appendChild(itemDeleteCell);
+  itemDeleteCell.appendChild(itemDeleteButton);
+
+  row.setAttribute('data-value', newRow.item_id);
+
+  currentTable.appendChild(row);
+};
