@@ -24,7 +24,6 @@ CREATE TABLE Employees (
 CREATE TABLE Pc_orders (
   pc_order_id int not NULL AUTO_INCREMENT,
   order_date datetime not NULL,
-  cost decimal (9, 2) not NULL,
   employee_id int,
   customer_id int not NULL,
   PRIMARY KEY (pc_order_id),
@@ -115,10 +114,9 @@ VALUES (
     'home'
   );
 ALTER TABLE Pc_orders AUTO_INCREMENT = 5000001;
-Insert INTO Pc_orders (order_date, cost, customer_id, employee_id)
+Insert INTO Pc_orders (order_date, customer_id, employee_id)
 VALUES (
     "2022-10-01",
-    5000.00,
     (
       SELECT customer_id
       FROM Customers
@@ -132,7 +130,6 @@ VALUES (
   ),
   (
     "2022-06-04",
-    5000.00,
     (
       SELECT customer_id
       FROM Customers
@@ -146,7 +143,6 @@ VALUES (
   ),
   (
     "2022-10-05",
-    3000.00,
     (
       SELECT customer_id
       FROM Customers
