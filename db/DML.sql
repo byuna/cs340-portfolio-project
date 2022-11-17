@@ -120,17 +120,7 @@ VALUES (
         ),
         :item_quantity
     );
--- Create a new Pc_order
-Insert INTO Pc_orders (order_date, cost, customer_id)
-VALUES (
-        :current_date,
-        :total_cost,
-        (
-            SELECT customer_id
-            FROM Customers
-            WHERE customer_id = :customer_id
-        )
-    );
+
 -- Delete old customer
 DELETE FROM Customers
 WHERE customer_id = :customer_id_entered_by_user;
@@ -159,8 +149,52 @@ FROM Pc_orders
     RIGHT Join Items using (item_id)
 WHERE pc_order_id = :pc_order_id;
 
+-- Display PC Orders Made and Their Accumulated Total
+SELECT Pc_orders.pc_order_id AS "Order ID",
+    DATE(Pc_orders.order_date) AS "Purchase Date",
+    CONCAT(
+        Customers.customer_first_name,
+        ' ',
+        Customers.customer_last_name
+    ) AS "Customer",
+    CONCAT(
+        Employees.employee_first_name,
+        ' ',
+        Employees.employee_last_name
+    ) AS "Helped By",
+    CONCAT(
+        "$ ",
+        SUM(Pc_orders_has_items.quantity * Items.item_cost)
+    ) AS "Total"
+FROM Pc_orders
+    Join Pc_orders_has_items using (pc_order_id)
+    Join Customers using (customer_id)
+    Join Employees using (employee_id)
+    Join Items using (item_id)
+GROUP BY Pc_orders.pc_order_id;
 
+-- [NEW 11/16/22] Create a new Pc_order and add an item to that order
+-- Use for Pc_orders CREATE/ADD
+START TRANSACTION;
+Insert INTO Pc_orders (order_date, customer_id)
+VALUES (
+        :order_date,
+        (
+            SELECT customer_id
+            FROM Customers
+            WHERE customer_id = :customer_id
+        )
+    );
+Insert INTO Pc_orders_has_items (pc_order_id, item_id, quantity)
+VALUES (
+    LAST_INSERT_ID(),
+    :item_id,
+    :item_quantity
+  );
+COMMIT;
 
-
-
-
+-- [NEW 11/16/22] Update Query to update an Order to Add an Employee to it
+-- use for Pc_orders Updating
+UPDATE Pc_orders
+SET employee_id = :employee_id_that_helped_customer
+WHERE pc_order_id = :pc_order_id;
