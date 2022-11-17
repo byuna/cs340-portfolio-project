@@ -33,6 +33,8 @@ addItemForm.addEventListener("submit", function (e) {
 
   xhttp.onreadystatechange = () => {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
+      addRowToTable(xhttp.response);                          // Was missing
+
       inputItemDescription = "";
       inputItemCost = "";
       inputPcFormat = "";

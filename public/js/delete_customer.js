@@ -15,7 +15,7 @@ function deleteCustomer(customerId) {
     }
   }
   xhttp.send(JSON.stringify(data));
-}
+};
 
 function deleteRow(customerId) {
   let table = document.getElementById("customers-table");
@@ -25,4 +25,4 @@ function deleteRow(customerId) {
       break;
     }
   }
-}
+};
