@@ -220,10 +220,10 @@ app.get('/pc-orders', function (req, res) {
   CONCAT(Employees.employee_first_name, ' ', Employees.employee_last_name) AS "Helped By",
   CONCAT("$ ", SUM(Pc_orders_has_items.quantity * Items.item_cost)) AS "Total"
   FROM Pc_orders
-  Join Pc_orders_has_items using (pc_order_id)
-  Join Customers using (customer_id)
-  Join Employees using (employee_id)
-  Join Items using (item_id)
+  LEFT JOIN Pc_orders_has_items using (pc_order_id)
+  LEFT JOIN Customers using (customer_id)
+  LEFT JOIN Employees using (employee_id)
+  LEFT JOIN Items using (item_id)
   GROUP BY Pc_orders.pc_order_id;`
 
   let employeeQuery = `SELECT employee_id, employee_first_name, employee_last_name FROM Employees;`;
@@ -267,6 +267,23 @@ app.post('/add-pc_orders-ajax', function(req, res) {
     }
   })          
 });
+
+
+app.delete('/delete-pc_order-ajax', function(req, res, next) {
+  let data = req.body;
+  let pcOrderId = parseInt(data.id);
+  let deletePcOrder = `DELETE FROM Pc_orders WHERE Pc_order_id = ?`;
+
+  db.pool.query(deletePcOrder, [pcOrderId], function (error, rows, fields) {
+    if (error) {
+      console.log(error);
+      res.sendStatus(400);
+    } else {
+      res.sendStatus(204);
+    }
+  })
+});
+
 
 // Pc_orders_has_items page routes
 app.get('/pc-orders-has-items', function (req, res) {
