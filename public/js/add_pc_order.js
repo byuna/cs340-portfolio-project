@@ -37,7 +37,6 @@ addPcOrderForm.addEventListener("submit", function (e) {
 });
 
 addRowToTable = (data) => {
-  console.log(data);
   let currentTable = document.getElementById("pc_orders-table");
 
   let newRowIndex = currentTable.rows.length;

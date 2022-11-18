@@ -20,13 +20,13 @@
   {{!-- Body section --}}
   <tbody>
     {{#each data}}
-    <tr>
+    <tr data-value={{"Order ID"}}>
       <td>{{"Order ID"}}</td>
       <td>{{"Purchase Date"}}</td>
       <td>{{"Customer"}}</td>
       <td>{{"Helped By"}}</td>
       <td>{{"Total"}}</td>
-      <td><button onclick="deletePcOrder()">Delete</button></td>
+      <td><button onclick="deletePcOrder({{"Order ID"}})">Delete</button></td>
     </tr>
     {{/each}}
   </tbody>
@@ -41,15 +41,15 @@
   <select name="input-customer_id" id="input-customer_id">
     <option value="null">Select Customer</option>
     {{#each customers}}
-    <option value="{{"customer_id"}}">{{customer_id}} - {{customer_first_name}} {{customer_last_name}}</option>
+    <option value="{{customer_id}}">{{customer_id}} - {{customer_first_name}} {{customer_last_name}}</option>
     {{/each}}
   </select>
 
-  <label for="input-item">Item </label>
+  <label for="input-item">Item: </label>
   <select name="input-item" id="input-item">
     <option value="null">Select an Item to Add</option>
     {{#each items}}
-    <option value="{{"item_id"}}">{{"pc_format"}} {{"pc_purpose"}}</option>
+    <option value="{{item_id}}">{{pc_format}} {{pc_purpose}}</option>
     {{/each}}
   </select>
 
@@ -69,7 +69,7 @@ added. 2 queries will be required. --}}
   <select name="update-pc-order-form" id="select-order-id">
     <option value="">Select an existing order</option>
     {{#each data}}
-    <option value="{{"Order ID"}}"</option>
+    <option value="{{"Order ID"}}">{{"Order ID"}}</option>
     {{/each}}
   </select>
 
@@ -79,8 +79,9 @@ until they're ready for checkout. Then an employee can be added to
 fulfill' the order --}}
   <label for="update-pc-order-form">Employee ID: </label>
   <select name="input-fullname" id="select-employee">
-    {{#each data}}
-    <option value="{{"Employee ID"}}">{{"Employee First Name"}} {{"Employee Last Name"}}</option>
+    <option value="">Select an Employee</option>
+    {{#each employees}}
+    <option value="{{employee_id}}">{{employee_first_name}} {{employee_last_name}}</option>
     {{/each}}
   </select>
   <input type="submit">
@@ -89,3 +90,5 @@ fulfill' the order --}}
 
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="./js/add_pc_order.js"></script>
+
+<script src="./js/delete_pc_order.js"></script>
