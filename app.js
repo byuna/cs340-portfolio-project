@@ -252,6 +252,46 @@ app.get('/pc-orders-has-items', function (req, res) {
   })
 });
 
+app.post('/add-pc-orders-has-items', function (req, res) {
+  let data = req.body;
+  queryAddPcOrderHasItems = `Insert INTO Pc_orders_has_items (pc_order_id, item_id, quantity)
+  VALUES ('${data.pc_order_id}', '${data.item_id}', '${data.quantity}')`;
+
+  db.pool.query(queryAddPcOrderHasItems, function (error, rows, fields) {
+    if (error) {
+      console.log(error)
+      res.sendStatus(400);
+    } else {
+      let query2 = 'SELECT * FROM Pc_orders_has_items;';
+      db.pool.query(query2, function (error, rows, fields) {
+        if (error) {
+          console.log(error);
+          res.sendStatus(400);
+        } else {
+
+          res.send(rows);
+        }
+      })
+    }
+  })
+});
+
+app.delete('/delete-pc-orders-has-items-ajax', function(req, res, next) {
+  let data = req.body;
+  let subId = parseInt(data.id);
+  let deletePcOrderPart = `DELETE FROM Pc_orders_has_items WHERE sub_order_id = ?;`;
+
+  db.pool.query(deletePcOrderPart, [subId], function(error, rows, fields) {
+    if (error) {
+      console.log(error);
+      res.sendStatus(400);
+    } else {
+      res.sendStatus(204);
+    }
+  })
+});
+
+
 
 // LISTENER
 app.listen(PORT, function () {   // This is the basic syntax for what is called the 'listener' which recieves incoming requests on the specified PORT.
