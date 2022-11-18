@@ -37,20 +37,19 @@
 <form id="add-pc-orders-form-ajax">
   <label for="input-order_date">Order date: </label>
   <input type="date" name="input-order_date" id="input-order_date">
-
   <label for="input-customer_id">Customer ID: </label>
   <select name="input-customer_id" id="input-customer_id">
-    <option value="null">#</option>
-    {{#each data}}
-    <option value="{{" customer_id"}}">{{customer_id}}</option>
+    <option value="null">Select Customer</option>
+    {{#each customers}}
+    <option value="{{"customer_id"}}">{{customer_id}} - {{customer_first_name}} {{customer_last_name}}</option>
     {{/each}}
   </select>
 
   <label for="input-item">Item </label>
   <select name="input-item" id="input-item">
     <option value="null">Select an Item to Add</option>
-    {{#each data}}
-    <option value="{{"Item ID"}}">{{"Item Format"}} {{"Item Purpose"}}</option>
+    {{#each items}}
+    <option value="{{"item_id"}}">{{"pc_format"}} {{"pc_purpose"}}</option>
     {{/each}}
   </select>
 
@@ -60,6 +59,7 @@
   <input type="submit">
 </form>
 
+
 {{!-- To create a new order, need a customer + at least one item 
 added. 2 queries will be required. --}}
 <h2>Order Update: Add Employee to Fulfill an Order</h2>
@@ -67,10 +67,10 @@ added. 2 queries will be required. --}}
 <form id="update-pc-order-form">
   <label for="update-pc-order-form">Order ID: </label>
   <select name="update-pc-order-form" id="select-order-id">
-    <option value="test">Select an existing order</option>
+    <option value="">Select an existing order</option>
     {{#each data}}
     <option value="{{"Order ID"}}"</option>
-      {{/each}}
+    {{/each}}
   </select>
 
 
