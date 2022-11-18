@@ -216,30 +216,56 @@ app.get('/pc-orders', function (req, res) {
 
   let queryPcorders =   `SELECT Pc_orders.pc_order_id AS "Order ID",
   DATE(Pc_orders.order_date) AS "Purchase Date",
-  CONCAT(
-      Customers.customer_first_name,
-      ' ',
-      Customers.customer_last_name
-  ) AS "Customer",
-  CONCAT(
-      Employees.employee_first_name,
-      ' ',
-      Employees.employee_last_name
-  ) AS "Helped By",
-  CONCAT(
-      "$ ",
-      SUM(Pc_orders_has_items.quantity * Items.item_cost)
-  ) AS "Total"
-FROM Pc_orders
+  CONCAT(Customers.customer_first_name, ' ', Customers.customer_last_name) AS "Customer",
+  CONCAT(Employees.employee_first_name, ' ', Employees.employee_last_name) AS "Helped By",
+  CONCAT("$ ", SUM(Pc_orders_has_items.quantity * Items.item_cost)) AS "Total"
+  FROM Pc_orders
   Join Pc_orders_has_items using (pc_order_id)
   Join Customers using (customer_id)
   Join Employees using (employee_id)
   Join Items using (item_id)
-GROUP BY Pc_orders.pc_order_id;`
+  GROUP BY Pc_orders.pc_order_id;`
+
+  let employeeQuery = `SELECT employee_id, employee_first_name, employee_last_name FROM Employees;`;
+  let customerQuery = `SELECT customer_id, customer_first_name, customer_last_name FROM Customers;`;
+  let itemQuery = `SELECT item_id, pc_purpose, pc_format FROM Items;`
 
   db.pool.query(queryPcorders, function (error, rows, fields) {
-    res.render('pc-orders', { data: rows });
+    let pc_orders = rows;
+    db.pool.query(employeeQuery, (error, rows, fields) => {
+      let employees = rows;
+      db.pool.query(customerQuery, (error, rows, fields) => {
+        let customers = rows;
+        db.pool.query(itemQuery, (error, rows, fields) => {
+          let items = rows;
+          return res.render('pc-orders', {data: pc_orders, employees: employees, customers: customers, items: items});
+        })
+      })
+    })
   })
+});
+
+app.post('/add-pc_orders-ajax', function(req, res) {
+  let data = req.body;
+  query1 = `INSERT INTO Pc_orders(order_date, customer_id)
+            VALUES ('${data.order_date}', '${data.customer_id}')`;
+
+  db.pool.query(query1, function(error, rows, fields) {
+    if (error) {
+      console.log(error + ' Pc_orders INSERT failed.');
+      res.sendStatus(400);
+    } else {
+      query2 = `SELECT * FROM Pc_orders;`;
+      db.pool.query(query2, function(error, rows, fields) {
+        if (error) {
+          console.log(error);
+          res.sendStatus(400);
+        } else {
+          res.send(rows);
+        }
+      })
+    }
+  })          
 });
 
 // Pc_orders_has_items page routes
