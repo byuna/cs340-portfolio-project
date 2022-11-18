@@ -9,14 +9,14 @@ addPcOrderForm.addEventListener("submit", function (e) {
   let inputItemQuantity = document.getElementById("input-quantity");
 
   let data = {
-    orderDateValue: inputOrderDate.value,
-    CustomerIDValue: inputCustomerID.value,
-    ItemIDValue: inputItemID.value,
-    ItemQuantityValue: inputItemQuantity.value
+    order_date: inputOrderDate.value,
+    customer_id: inputCustomerID.value,
+    item_id: inputItemID.value,
+    quantity: inputItemQuantity.value
   };
 
   var xhttp = new XMLHttpRequest();
-  xhttp.open("POST", "/add-order", true);
+  xhttp.open("POST", "/add-pc_orders-ajax", true);
   xhttp.setRequestHeader("Content-type", "application/json");
 
   xhttp.onreadystatechange = () => {
@@ -29,14 +29,16 @@ addPcOrderForm.addEventListener("submit", function (e) {
       inputItemQuantity = '';
       
     } else if (xhttp.readyState == 4 && xhttp.status != 200) {
-      console.log("There was an error with the input.");
+      console.log("There was an error with the input." + " " + xhttp.status);
     }
   }
+
   xhttp.send(JSON.stringify(data));
 });
 
 addRowToTable = (data) => {
-  let currentTable = document.getElementById("pc-orders-table");
+  console.log(data);
+  let currentTable = document.getElementById("pc_orders-table");
 
   let newRowIndex = currentTable.rows.length;
 
@@ -52,11 +54,11 @@ addRowToTable = (data) => {
 
   let pcOrderDeleteCell = document.createElement("TD");
 
-  pcOrderIdCell.innerText = newRow.employee_id;
-  pcOrderDateCell.innerText = newRow.employee_first_name;
-  pcOrderCustomerCell.innerText = newRow.employee_last_name;
-  pcOrderEmployeeCell.innerText = newRow.employee_phone;
-  pcOrderTotalCell.innerText = newRow.employee_email;
+  pcOrderIdCell.innerText = newRow.order_id;
+  pcOrderDateCell.innerText = newRow.order_date;
+  pcOrderCustomerCell.innerText = newRow.customer_id;
+  pcOrderEmployeeCell.innerText = newRow.employee_id;
+  pcOrderTotalCell.innerText = newRow.employee_email;           //// HOW DO I GET THE TOTAL?
 
   pcOrderDeleteButton = document.createElement("button");
   pcOrderDeleteButton.innerHTML = "Delete";

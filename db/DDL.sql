@@ -27,9 +27,8 @@ CREATE TABLE Pc_orders (
   employee_id int,
   customer_id int not NULL,
   PRIMARY KEY (pc_order_id),
-  FOREIGN KEY (employee_id) REFERENCES Employees(employee_id) ON DELETE
-  SET NULL ON UPDATE CASCADE,
-    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id) ON DELETE CASCADE ON UPDATE CASCADE
+  FOREIGN KEY (employee_id) REFERENCES Employees(employee_id) ON DELETE SET NULL ON UPDATE CASCADE,
+  FOREIGN KEY (customer_id) REFERENCES Customers(customer_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 CREATE TABLE Items (
   item_id int not NULL AUTO_INCREMENT,
