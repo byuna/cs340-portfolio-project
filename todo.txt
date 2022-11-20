@@ -1,5 +1,15 @@
-1. Update drop down lists to dynamically update without refresh when row is deleted.
-2. Clear out fields after a query has been sucessfully run.
-3. Items INSERT does not update table.
-4. Add Dropdown for adding items. Platform and Purpose
-5. Delete button when customer added to table.
+TO DO LIST:
+• Clear out fields after a query has been sucessfully run. (Items, PC Orders, and Pc Orders Has Items)
+• Add filtering on Pc Order Has Items by PC Order ID.
+• Format Cost on Items when row added without refresh.
+• Description should be model name?
+• Add Item Descriptions to PC Orders Has Items
+• Add phone number constraints. data integrity
+• Add more Items combinations of format/purpose
+
+
+COMPLETE:
+• Update drop down lists to dynamically update without refresh when row is deleted.
+• Make Items Table update immediate when items are added.
+• Add Dropdown for adding items. Platform and Purpose
+• Delete button when customer added to table.

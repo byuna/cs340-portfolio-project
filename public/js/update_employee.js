@@ -38,15 +38,16 @@ updatePersonForm.addEventListener("submit", function (e) {
 
 function updateRow(data, employeeId) {
   let parsedData = JSON.parse(data);
-
+  
   let table = document.getElementById("employees-table");
 
   for (let i = 0, row; row = table.rows[i]; i++) {
     if (table.rows[i].getAttribute("data-value") == employeeId) {
       let updateRowIndex = table.getElementsByTagName("TR")[i];
       let td = updateRowIndex.getElementsByTagName("td")[3];
-      let newNumber = parsedData[i - 1].employee_phone;
-      console.log(newNumber);
+
+      // there's only one entry in the parsedData array, which is why [0] is used.
+      let newNumber = parsedData[0].employee_phone;
       td.innerHTML = newNumber;
     }
   }

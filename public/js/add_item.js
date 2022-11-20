@@ -20,13 +20,6 @@ addItemForm.addEventListener("submit", function (e) {
     pc_purpose: itemPcPurposeValue
   };
 
-  // let data = {
-  //   item_description: inputItemDescription.value,
-  //   item_cost: inputItemCost.value,
-  //   pc_format: inputPcFormat.value,
-  //   pc_purpose: inputPcPurpose.value
-  // };
-
   var xhttp = new XMLHttpRequest();
   xhttp.open("POST", "/add-item-ajax", true);
   xhttp.setRequestHeader("Content-type", "application/json");
@@ -35,10 +28,10 @@ addItemForm.addEventListener("submit", function (e) {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
       addRowToTable(xhttp.response);                          // Was missing
 
-      inputItemDescription = "";
-      inputItemCost = "";
-      inputPcFormat = "";
-      inputPcPurpose = "";
+      inputItemDescription.value = "";
+      inputItemCost.value = "";
+      inputPcFormat.value = "";
+      inputPcPurpose.value = "";
     } else if (xhttp.readyState == 4 && xhttp.status != 200) {
       console.log("There was an error with the input.");
     }

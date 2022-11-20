@@ -33,7 +33,7 @@
 </table>
 
 <h2>New Employee Application</h2>
-<p>To add a new employee, please enter the information below and click 'Submit'!</p>
+<p>To add a new employee, please enter the information below and click 'Apply Now'!</p>
 <form id="add-employee-form-ajax">
   <label for="input-employee_first_name">First name: </label>
   <input type="text" name="input-employee_first_name" id="input-employee_first_name">
@@ -47,7 +47,7 @@
  <label for="input-employee_email">Email address: </label>
   <input type="text" name="input-employee_email" id="input-employee_email">
 
-  <input type="submit">
+  <input type="submit" value="Apply Now">
 </form>
 
 <h2>Updating an Employee's Phone Number</h2>
@@ -63,7 +63,7 @@
 
   <label for="input-phone">Phone Number: </label>
   <input type="text" name="input-employee_phone-update" id="input-employee_phone-update">
-  <input type="submit">
+  <input type="submit" value="Update">
 </form>
 
 <h2>Employee Search</h2>
@@ -72,14 +72,9 @@
   <label for="input-lname">Search by Last Name: </label>
   <input type="text" name="lname" id="input-lname-html-search">
 
-  <input type="submit">
+  <input type="submit" value="Search">
   <a href='/employees'><button>Reset</button></a>
 </form>
-
-
-
-
-
 
 {{!-- Update Script --}}
 <script src="./js/update_employee.js"></script>
@@ -89,6 +84,3 @@
 
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="./js/add_employee.js"></script>
-
-{{!-- jQuery Delete Request Option
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> --}}
