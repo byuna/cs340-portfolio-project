@@ -76,7 +76,12 @@ app.delete('/delete-customer-ajax/', function(req, res, next) {
 // ITEMS PAGE ROUTE
 app.get('/items', function(req, res) {
   
-  let queryItems = "SELECT item_id AS 'Item ID', item_description AS 'Description', item_cost AS 'Cost', pc_format AS 'Format', pc_purpose AS 'Purpose' FROM Items;"
+  let queryItems = `SELECT item_id AS 'Item ID', 
+  item_description AS 'Description', 
+  CONCAT('$', FORMAT(item_cost, '2')) AS 'Cost', 
+  pc_format AS 'Format', 
+  pc_purpose AS 'Purpose' 
+  FROM Items;`
 
   db.pool.query(queryItems, function (error, rows, fields) {
     res.render('items', { data: rows });
@@ -191,14 +196,13 @@ app.put('/put-employee', function(req, res) {
   let employee = parseInt(data.fullName);
 
   let queryUpdatePhone = `UPDATE Employees SET employee_phone = ? where Employees.employee_id = ?`;
-  let querySelectAllEmployees = `SELECT * FROM Employees;`
+  let querySelectAllEmployees = `SELECT * FROM Employees WHERE employee_id = ?;`
   db.pool.query(queryUpdatePhone, [phone, employee], function(error, rows, fields) {
-
     if (error) {
       console.log(error);
       res.sendStatus(400);
     } else {
-      db.pool.query(querySelectAllEmployees, function(error, rows, fields) {
+      db.pool.query(querySelectAllEmployees, [employee], function(error, rows, fields) {
         if (error) {
           console.log(error);
           res.sendStatus(400);
@@ -292,10 +296,26 @@ app.delete('/delete-pc_order-ajax', function(req, res, next) {
 // Pc_orders_has_items page routes
 app.get('/pc-orders-has-items', function (req, res) {
 
-  let queryPcorders = "SELECT sub_order_id AS 'Sub ID', pc_order_id AS 'Order ID', item_id AS 'Item ID', quantity AS 'Quantity' FROM Pc_orders_has_items;"
+  let selectAllPcOrdersHasItems = `SELECT sub_order_id AS 'Sub Order ID', 
+  pc_order_id AS 'PC Order ID', 
+  item_id AS 'Item ID',
+  CONCAT('$', FORMAT(Items.item_cost, '2')) as 'Cost Per Unit', 
+  quantity AS 'Quantity' 
+  FROM Pc_orders_has_items
+  JOIN Items using (item_id);`
 
-  db.pool.query(queryPcorders, function (error, rows, fields) {
-    res.render('pc-orders-has-items', { data: rows });
+  let selectAllItems = `SELECT * FROM Items;`;
+  let selectAllPcOrders = `SELECT * FROM Pc_orders;`
+  
+  db.pool.query(selectAllPcOrdersHasItems, function (error, rows, fields) {
+    let Pc_orders_has_items = rows;
+    db.pool.query(selectAllItems, function (error, rows, fields) {
+      let items = rows;
+      db.pool.query(selectAllPcOrders, function (error, rows, fields) {
+        let pc_orders = rows;
+        res.render('pc-orders-has-items', {data: Pc_orders_has_items, items: items, pc_orders: pc_orders});
+      })
+    })
   })
 });
 
@@ -309,7 +329,14 @@ app.post('/add-pc-orders-has-items', function (req, res) {
       console.log(error)
       res.sendStatus(400);
     } else {
-      let query2 = 'SELECT * FROM Pc_orders_has_items;';
+      let query2 = `SELECT sub_order_id,
+      pc_order_id,
+      item_id,
+      CONCAT('$', FORMAT(Items.item_cost, '2')) AS 'cost_per_unit',
+      quantity
+      FROM Pc_orders_has_items
+      JOIN Items using(item_id);`;
+
       db.pool.query(query2, function (error, rows, fields) {
         if (error) {
           console.log(error);
@@ -323,7 +350,7 @@ app.post('/add-pc-orders-has-items', function (req, res) {
   })
 });
 
-app.delete('/delete-pc-orders-has-items-ajax', function(req, res, next) {
+app.delete('/delete-pc-orders-has-items-ajax', function(req, res) {
   let data = req.body;
   let subId = parseInt(data.id);
   let deletePcOrderPart = `DELETE FROM Pc_orders_has_items WHERE sub_order_id = ?;`;
@@ -338,7 +365,30 @@ app.delete('/delete-pc-orders-has-items-ajax', function(req, res, next) {
   })
 });
 
+app.put('/put-pc-orders-has-items-ajax', function (req, res) {
+  let data = req.body;
+  let subOrderId = parseInt(data.sub_order_id);
+  let quantity = parseInt(data.quantity);
 
+  let queryUpdatePcOrdersHasItems = `UPDATE Pc_orders_has_items SET quantity = ? WHERE sub_order_id = ?;`;
+  let selectPcOrdersHasItems = `SELECT * FROM Pc_orders_has_items WHERE sub_order_id = ?;`;
+
+  db.pool.query(queryUpdatePcOrdersHasItems, [quantity, subOrderId], function (error, rows, fields) {
+    if (error) {
+      console.log(error);
+      res.sendStatus(400);
+    } else {
+      db.pool.query(selectPcOrdersHasItems, [subOrderId], function (error, rows, fields) {
+        if (error) {
+          console.log(error);
+          res.sendStatus(400);
+        } else {
+          res.send(rows);
+        }
+      })
+    }
+  })
+});
 
 // LISTENER
 app.listen(PORT, function () {   // This is the basic syntax for what is called the 'listener' which recieves incoming requests on the specified PORT.

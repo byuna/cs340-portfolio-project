@@ -31,11 +31,9 @@ addItemForm.addEventListener("submit", function (e) {
   xhttp.send(JSON.stringify(data));
 })
 
-
 // Adding a New Item 
 addRowToTable = (data) => {
   let currentTable = document.getElementById("pc_orders_has_items-table");
-
   // may not need
   let newRowIndex = currentTable.rows.length;
 
@@ -46,12 +44,14 @@ addRowToTable = (data) => {
   let subOrderIdCell = document.createElement("TD");
   let pcOrderIdCell = document.createElement("TD");
   let itemIdCell = document.createElement("TD");
+  let costPerUnitCell = document.createElement("TD");
   let quantityCell = document.createElement("TD");
   let itemDeleteCell = document.createElement("TD");
 
   subOrderIdCell.innerText = newRow.sub_order_id;
   pcOrderIdCell.innerText = newRow.pc_order_id;
   itemIdCell.innerText = newRow.item_id;
+  costPerUnitCell.innerText = newRow.cost_per_unit;
   quantityCell.innerText = newRow.quantity;
 
   itemDeleteButton = document.createElement("button");
@@ -63,6 +63,7 @@ addRowToTable = (data) => {
   row.appendChild(subOrderIdCell);
   row.appendChild(pcOrderIdCell);
   row.appendChild(itemIdCell);
+  row.append(costPerUnitCell);
   row.appendChild(quantityCell);
   row.appendChild(itemDeleteCell);
   itemDeleteCell.appendChild(itemDeleteButton);
@@ -70,4 +71,10 @@ addRowToTable = (data) => {
   row.setAttribute('data-value', newRow.sub_order_id);
 
   currentTable.appendChild(row);
+
+  let selectMenu = document.getElementById("input-update-sub_order_id");
+  let option = document.createElement("option");
+  option.text = newRow.sub_order_id;
+  option.value = newRow.sub_order_id;
+  selectMenu.add(option);
 };
