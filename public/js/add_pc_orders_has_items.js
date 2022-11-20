@@ -21,9 +21,9 @@ addItemForm.addEventListener("submit", function (e) {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
       addRowToTable(xhttp.response);                          // Was missing
 
-      inputPcOrderId = "";
-      inputItemId = "";
-      inputQuantity = "";
+      inputPcOrderId.value = "";
+      inputItemId.value = "";
+      inputQuantity.value = "";
     } else if (xhttp.readyState == 4 && xhttp.status != 200) {
       console.log("There was an error with the input.");
     }

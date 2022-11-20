@@ -97,13 +97,22 @@ app.post('/add-item-ajax', function (req, res) {
     res.sendStatus(400);
   }
 
-  query1 = `INSERT INTO Items (item_description, item_cost, pc_format, pc_purpose) VALUES ('${data.item_description}', '${data.item_cost}', '${data.pc_format}', '${data.pc_purpose}')`;
+  query1 = `INSERT INTO Items (item_description, item_cost, pc_format, pc_purpose) 
+  VALUES ('${data.item_description}', '${data.item_cost}', '${data.pc_format}', '${data.pc_purpose}')`;
+  
   db.pool.query(query1, function (error, rows, fields) {
     if (error) {
       console.log(error);
       res.sendStatus(400);
     } else {
-      allItemsQuery = `SELECT * FROM Items;`;
+
+      allItemsQuery = `SELECT item_id,
+      item_description,
+      CONCAT('$', FORMAT(item_cost, '2')) AS 'item_cost', 
+      pc_format,
+      pc_purpose
+      FROM Items;`;
+
       db.pool.query(allItemsQuery, function (error, rows, fields) {
         if (error) {
           console.log(error);

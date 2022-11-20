@@ -24,6 +24,8 @@ updatePcOrdersHasItemsForm.addEventListener("submit", function(e) {
   xhttp.onreadystatechange = () => {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
       updateRow(xhttp.response, subOrderIdValue);
+      inputSubOrderId.value = "";
+      inputQuantity.value = "";
     } else if (xhttp.readyState == 4 && xhttp.status != 200) {
       console.log("There was an error with the input.");
     }
