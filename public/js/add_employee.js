@@ -81,8 +81,9 @@ addRowToTable = (data) => {
   
   currentTable.appendChild(row);
 
-  let SelectMenu = document.getElementById("mySelect");
+  let selectMenu = document.getElementById("mySelect");
   let option = document.createElement("option");
   option.text = newRow.employee_first_name + ' ' + newRow.employee_last_name;
   option.value = newRow.employee_id;
+  selectMenu.add(option);
 }
