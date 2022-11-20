@@ -23,7 +23,7 @@ CREATE TABLE Employees (
 );
 CREATE TABLE Pc_orders (
   pc_order_id int not NULL AUTO_INCREMENT,
-  order_date datetime not NULL,
+  order_date date not NULL,
   employee_id int,
   customer_id int not NULL,
   PRIMARY KEY (pc_order_id),
@@ -87,7 +87,7 @@ VALUES (
   ),
   ('Guy', 'Dude', '555-404-1337', 'dudeg@tbps.com'),
   ('John', 'Wick', '555-555-1024', 'wickj@tbps.com');
-ALTER TABLE Items AUTO_INCREMENT = 10001;
+ALTER TABLE Items AUTO_INCREMENT = 1001;
 INSERT Items (
     item_description,
     item_cost,
@@ -97,22 +97,22 @@ INSERT Items (
 VALUES (
     'The next gen portable gaming Laptop!',
     3500.00,
-    'laptop',
-    'gaming'
+    'Laptop',
+    'Gaming'
   ),
   (
     'Intellitron 5000 for Businesses!',
     5000.00,
-    'desktop',
-    'business'
+    'Desktop',
+    'Business'
   ),
   (
     'The best do it all for family homes!',
     1500.00,
-    'desktop',
-    'home'
+    'Desktop',
+    'Home'
   );
-ALTER TABLE Pc_orders AUTO_INCREMENT = 5000001;
+ALTER TABLE Pc_orders AUTO_INCREMENT = 5001;
 Insert INTO Pc_orders (order_date, customer_id, employee_id)
 VALUES (
     "2022-10-01",
@@ -155,38 +155,38 @@ VALUES (
   );
 Insert INTO Pc_orders_has_items (pc_order_id, item_id, quantity)
 VALUES (
-    5000001,
+    5001,
     (
       SELECT item_id
       from Items
-      WHERE pc_purpose = "gaming"
+      WHERE pc_purpose = "Gaming"
     ),
     1
   ),
   (
-    5000001,
+    5001,
     (
       SELECT item_id
       from Items
-      WHERE pc_purpose = "home"
+      WHERE pc_purpose = "Home"
     ),
     1
   ),
   (
-    5000002,
+    5002,
     (
       SELECT item_id
       from Items
-      WHERE pc_purpose = "business"
+      WHERE pc_purpose = "Business"
     ),
     1
   ),
   (
-    5000003,
+    5003,
     (
       SELECT item_id
       from Items
-      WHERE pc_purpose = "home"
+      WHERE pc_purpose = "Home"
     ),
     2
   );

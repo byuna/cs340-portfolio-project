@@ -215,7 +215,7 @@ app.put('/put-employee', function(req, res) {
 app.get('/pc-orders', function (req, res) {
 
   let queryPcorders =   `SELECT Pc_orders.pc_order_id AS "Order ID",
-  DATE(Pc_orders.order_date) AS "Purchase Date",
+  DATE_FORMAT(Pc_orders.order_date, '%Y-%m-%d') AS "Purchase Date",
   CONCAT(Customers.customer_first_name, ' ', Customers.customer_last_name) AS "Customer",
   CONCAT(Employees.employee_first_name, ' ', Employees.employee_last_name) AS "Helped By",
   CONCAT("$ ", SUM(Pc_orders_has_items.quantity * Items.item_cost)) AS "Total"
@@ -249,16 +249,18 @@ app.post('/add-pc_orders-ajax', function(req, res) {
   let data = req.body;
   query1 = `INSERT INTO Pc_orders(order_date, customer_id)
             VALUES ('${data.order_date}', '${data.customer_id}')`;
+  query2 = `INSERT into Pc_orders_has_items(order_id, item_id, quantity)
+            VALUES ('${data.order_id}', '${data.item_id}', '${data.quantity}')`;
+  query3 = `SELECT * FROM Pc_orders;`;
 
   db.pool.query(query1, function(error, rows, fields) {
     if (error) {
       console.log(error + ' Pc_orders INSERT failed.');
       res.sendStatus(400);
     } else {
-      query2 = `SELECT * FROM Pc_orders;`;
-      db.pool.query(query2, function(error, rows, fields) {
+      db.pool.query(query3, function(error, rows, fields) {
         if (error) {
-          console.log(error);
+          console.log(error + "Item insert failed");
           res.sendStatus(400);
         } else {
           res.send(rows);

@@ -53,7 +53,7 @@ addRowToTable = (data) => {
 
   let pcOrderDeleteCell = document.createElement("TD");
 
-  pcOrderIdCell.innerText = newRow.order_id;
+  pcOrderIdCell.innerText = newRow.pc_order_id;
   pcOrderDateCell.innerText = newRow.order_date;
   pcOrderCustomerCell.innerText = newRow.customer_id;
   pcOrderEmployeeCell.innerText = newRow.employee_id;
