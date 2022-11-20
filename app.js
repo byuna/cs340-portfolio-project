@@ -253,7 +253,9 @@ app.post('/add-pc_orders-ajax', function(req, res) {
             VALUES ('${data.order_id}', '${data.item_id}', '${data.quantity}')`;
   query3 = `SELECT * FROM Pc_orders;`;
 
-  db.pool.query(query1, function(error, rows, fields) {
+  queryNew = `START TRANSACTION; Insert INTO Pc_orders (order_date, customer_id) VALUES ('${data.order_date}', (SELECT customer_id FROM Customers WHERE customer_id = '${data.customer_id}')); Insert INTO Pc_orders_has_items (pc_order_id, item_id, quantity) VALUES (LAST_INSERT_ID(), '${data.item_id}', '${data.quantity}');COMMIT;`;
+
+  db.pool.query(queryNew, function(error, rows, fields) {
     if (error) {
       console.log(error + ' Pc_orders INSERT failed.');
       res.sendStatus(400);
