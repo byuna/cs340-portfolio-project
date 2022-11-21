@@ -99,7 +99,7 @@ app.post('/add-item-ajax', function (req, res) {
 
   query1 = `INSERT INTO Items (item_description, item_cost, pc_format, pc_purpose) 
   VALUES ('${data.item_description}', '${data.item_cost}', '${data.pc_format}', '${data.pc_purpose}')`;
-  
+
   db.pool.query(query1, function (error, rows, fields) {
     if (error) {
       console.log(error);
@@ -302,21 +302,38 @@ app.delete('/delete-pc_order-ajax', function(req, res, next) {
 });
 
 
-// Pc_orders_has_items page routes
+// PC ORDERS HAS ITEMS ROUTES
 app.get('/pc-orders-has-items', function (req, res) {
 
-  let selectAllPcOrdersHasItems = `SELECT sub_order_id AS 'Sub Order ID', 
-  pc_order_id AS 'PC Order ID', 
-  item_id AS 'Item ID',
-  CONCAT('$', FORMAT(Items.item_cost, '2')) as 'Cost Per Unit', 
-  quantity AS 'Quantity' 
-  FROM Pc_orders_has_items
-  JOIN Items using (item_id);`
+  if (req.query.poid == '') {
+    req.query.poid = undefined;
+  };
+
+  let selectPcOrdersHasItems;
+  
+  if (req.query.poid === undefined) {
+    selectPcOrdersHasItems = `SELECT sub_order_id AS 'Sub Order ID', 
+    pc_order_id AS 'PC Order ID', 
+    item_id AS 'Item ID',
+    CONCAT('$', FORMAT(Items.item_cost, '2')) as 'Cost Per Unit', 
+    quantity AS 'Quantity' 
+    FROM Pc_orders_has_items
+    JOIN Items using (item_id);`
+  } else {
+    selectPcOrdersHasItems = `SELECT sub_order_id AS 'Sub Order ID', 
+    pc_order_id AS 'PC Order ID', 
+    item_id AS 'Item ID',
+    CONCAT('$', FORMAT(Items.item_cost, '2')) as 'Cost Per Unit', 
+    quantity AS 'Quantity' 
+    FROM Pc_orders_has_items
+    JOIN Items using (item_id)
+    WHERE pc_order_id = "${req.query.poid}";`
+  }
 
   let selectAllItems = `SELECT * FROM Items;`;
   let selectAllPcOrders = `SELECT * FROM Pc_orders;`
   
-  db.pool.query(selectAllPcOrdersHasItems, function (error, rows, fields) {
+  db.pool.query(selectPcOrdersHasItems, function (error, rows, fields) {
     let Pc_orders_has_items = rows;
     db.pool.query(selectAllItems, function (error, rows, fields) {
       let items = rows;

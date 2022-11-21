@@ -17,6 +17,7 @@ updatePcOrdersHasItemsForm.addEventListener("submit", function(e) {
     sub_order_id: subOrderIdValue,
     quantity: quantityValue
   };
+  
   var xhttp = new XMLHttpRequest();
   xhttp.open("PUT", "/put-pc-orders-has-items-ajax", true);
   xhttp.setRequestHeader("Content-type", "application/json");

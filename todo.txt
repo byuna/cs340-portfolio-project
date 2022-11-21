@@ -1,11 +1,11 @@
 TO DO LIST:
 • Clear out fields after a query has been sucessfully run. (Items, PC Orders, and Pc Orders Has Items)
 • Add filtering on Pc Order Has Items by PC Order ID.
-• Format Cost on Items when row added without refresh.
 • Description should be model name?
 • Add Item Descriptions to PC Orders Has Items
 • Add phone number constraints. data integrity
 • Add more Items combinations of format/purpose
+• Make pc purpose and pc format combinations unique
 
 
 COMPLETE:
@@ -13,3 +13,5 @@ COMPLETE:
 • Make Items Table update immediate when items are added.
 • Add Dropdown for adding items. Platform and Purpose
 • Delete button when customer added to table.
+• Format Cost on Items when row added without refresh.
+• Add filtering on Pc Order Has Items by PC Order ID.

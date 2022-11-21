@@ -74,6 +74,16 @@
   <input type="submit" value="Update">
 </form>
 
+<h2>Search for your order here</h2>
+<p>Enter your PC Order ID to see all Items on your order<p>
+<form id ="search-pc_orders_has_items-html" method='GET' action='/pc-orders-has-items'>
+  <label for="input-poid">Search by PC Order ID: </label>
+  <input type="text" name="poid" id="input-poid-html-search">
+
+  <input type="submit" value="Search">
+  <a href='/pc-orders-has-items'><button>Reset</button></a>
+</form>
+
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="./js/add_pc_orders_has_items.js"></script>
 
