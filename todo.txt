@@ -1,9 +1,10 @@
 TO DO LIST:
-• Clear out fields after a query has been sucessfully run. (Items, PC Orders, and Pc Orders Has Items)
-• Add filtering on Pc Order Has Items by PC Order ID.
+• Clear out fields after a query has been sucessfully run. (PC Orders)
+
 • Description should be model name?
 • Add Item Descriptions to PC Orders Has Items
 • Add phone number constraints. data integrity
+
 • Add more Items combinations of format/purpose
 • Make pc purpose and pc format combinations unique
 
