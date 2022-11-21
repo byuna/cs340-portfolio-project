@@ -231,7 +231,7 @@ app.get('/pc-orders', function (req, res) {
   DATE_FORMAT(Pc_orders.order_date, '%Y-%m-%d') AS "Purchase Date",
   CONCAT(Customers.customer_first_name, ' ', Customers.customer_last_name) AS "Customer",
   CONCAT(Employees.employee_first_name, ' ', Employees.employee_last_name) AS "Helped By",
-  CONCAT("$ ", SUM(Pc_orders_has_items.quantity * Items.item_cost)) AS "Total"
+  CONCAT('$', FORMAT(SUM(Items.item_cost * Pc_orders_has_items.quantity), '2')) AS "Total"
   FROM Pc_orders
   LEFT JOIN Pc_orders_has_items using (pc_order_id)
   LEFT JOIN Customers using (customer_id)
@@ -264,7 +264,17 @@ app.post('/add-pc_orders-ajax', function(req, res) {
             VALUES ('${data.order_date}', '${data.customer_id}')`;
   query2 = `INSERT into Pc_orders_has_items(order_id, item_id, quantity)
             VALUES ('${data.order_id}', '${data.item_id}', '${data.quantity}')`;
-  query3 = `SELECT * FROM Pc_orders;`;
+  let queryPcorders =   `SELECT Pc_orders.pc_order_id AS "pc_order_id",
+                        DATE_FORMAT(Pc_orders.order_date, '%Y-%m-%d') AS "order_date",
+                        CONCAT(Customers.customer_first_name, ' ', Customers.customer_last_name) AS "customer_id",
+                        CONCAT(Employees.employee_first_name, ' ', Employees.employee_last_name) AS "employee_id",
+                        CONCAT('$', FORMAT(SUM(Items.item_cost * Pc_orders_has_items.quantity), '2')) AS "total"
+                        FROM Pc_orders
+                        LEFT JOIN Pc_orders_has_items using (pc_order_id)
+                        LEFT JOIN Customers using (customer_id)
+                        LEFT JOIN Employees using (employee_id)
+                        LEFT JOIN Items using (item_id)
+                        GROUP BY Pc_orders.pc_order_id;`
 
   queryNew = `START TRANSACTION; Insert INTO Pc_orders (order_date, customer_id) VALUES ('${data.order_date}', (SELECT customer_id FROM Customers WHERE customer_id = '${data.customer_id}')); Insert INTO Pc_orders_has_items (pc_order_id, item_id, quantity) VALUES (LAST_INSERT_ID(), '${data.item_id}', '${data.quantity}');COMMIT;`;
 
@@ -273,7 +283,7 @@ app.post('/add-pc_orders-ajax', function(req, res) {
       console.log(error + ' Pc_orders INSERT failed.');
       res.sendStatus(400);
     } else {
-      db.pool.query(query3, function(error, rows, fields) {
+      db.pool.query(queryPcorders, function(error, rows, fields) {
         if (error) {
           console.log(error + "Item insert failed");
           res.sendStatus(400);
