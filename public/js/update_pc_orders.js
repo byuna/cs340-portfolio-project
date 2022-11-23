@@ -20,7 +20,11 @@ updatePcOrderForm.addEventListener("submit", function (e) {
 
   xhttp.onreadystatechange = () => {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
+
       updateRow(xhttp.response, orderIdValue);
+      inputOrderId.value = '';
+      inputEmployee.value = '';
+      
     } else if (xhttp.readyState == 4 && xhttp.status != 200) {
         console.log("There was an error updating the employee for a PC.");
     }
