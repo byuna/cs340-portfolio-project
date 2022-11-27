@@ -51,7 +51,35 @@
   <input type="submit" value="Add Customer">
 </form>
 
+<h2>Updating an Customer's Phone Number</h2>
+<p> To update an customer's number, select their name from the drop down and input a new number to update to.</p>
+<form id="update-customer-form">
+  <label for="input-fullname">Full Name: </label>
+  <select name="input-fullname" id="mySelect">
+    <option value="test">Select a Customer</option>
+    {{#each data}}
+    <option value="{{"Customer ID"}}">{{"Customer ID"}}. {{"First Name"}} {{"Last Name"}}</option>
+    {{/each}}
+  </select>
+
+  <label for="input-phone">Phone Number: </label>
+  <input type="text" name="input-customer_phone-update" id="input-customer_phone-update">
+  <input type="submit" value="Update">
+</form>
+
+<h2>Customer Search</h2>
+<p>Search by last name using the field below. Partial last names are okay too!</p>
+<form id="search-customer-html" method='GET' action='/customers'>
+  <label for="input-lname">Search by Last Name: </label>
+  <input type="text" name="lname" id="input-lname-html-search">
+
+  <input type="submit" value="Search">
+  <a href='/customers'><button>Reset</button></a>
+</form>
+
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/update_customer.js"></script>
+
 <script src="./js/add_customer.js"></script>
 
 <script src="./js/delete_customer.js"></script>
