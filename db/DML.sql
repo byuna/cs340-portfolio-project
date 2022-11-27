@@ -16,6 +16,12 @@ SELECT *
 FROM Customers;
 -- Shows all the Pc_orders that have been placed
 SELECT *
+
+-- Search query for any name (first or last)
+SELECT * FROM Employees 
+WHERE Employees.employee_first_name LIKE :someName OR 
+Employees.employee_last_name LIKE :someName;
+
 FROM Pc_orders;
 -- Filter for Employee by last name
 SELECT 
@@ -198,3 +204,5 @@ COMMIT;
 UPDATE Pc_orders
 SET employee_id = :employee_id_that_helped_customer
 WHERE pc_order_id = :pc_order_id;
+
+
