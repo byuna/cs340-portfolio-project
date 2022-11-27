@@ -27,8 +27,9 @@ CREATE TABLE Pc_orders (
   employee_id int,
   customer_id int not NULL,
   PRIMARY KEY (pc_order_id),
-  FOREIGN KEY (employee_id) REFERENCES Employees(employee_id) ON DELETE SET NULL ON UPDATE CASCADE,
-  FOREIGN KEY (customer_id) REFERENCES Customers(customer_id) ON DELETE CASCADE ON UPDATE CASCADE
+  FOREIGN KEY (employee_id) REFERENCES Employees(employee_id) ON DELETE
+  SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 CREATE TABLE Items (
   item_id int not NULL AUTO_INCREMENT,
@@ -72,6 +73,24 @@ VALUES (
     'Yelnats',
     'stanleyyelnats@yeemail.com',
     '555-413-5454'
+  ),
+  (
+    'Grace',
+    'Hopper',
+    'ghopper06@yeemail.com',
+    '555-222-5155'
+  ),
+  (
+    'Michael',
+    'Widenius',
+    'micwide@MySQLMail.com',
+    '555-333-5555'
+  ),
+  (
+    'Alan',
+    'Turing',
+    'aturn@twitter.com',
+    '555-333-5555'
   );
 INSERT Employees (
     employee_first_name,
@@ -111,6 +130,24 @@ VALUES (
     1500.00,
     'Desktop',
     'Home'
+  ),
+  (
+    'Ultraportable laptop for your business needs.',
+    2349.99,
+    'Laptop',
+    'Business'
+  ),
+  (
+    'Basic laptop for K-12 students. Affordable and ideal for large classrooms',
+    149.99,
+    'Laptop',
+    'Education'
+  ),
+  (
+    'The latest zTablet 13 Pro Max with 12 cameras.',
+    3120.22,
+    'Tablet',
+    'General'
   );
 ALTER TABLE Pc_orders AUTO_INCREMENT = 5001;
 Insert INTO Pc_orders (order_date, customer_id, employee_id)
@@ -152,6 +189,32 @@ VALUES (
       FROM Employees
       WHERE employee_id = 3
     )
+  ),
+  (
+    "2022-10-31",
+    (
+      SELECT customer_id
+      FROM Customers
+      WHERE customer_id = 2004
+    ),
+    (
+      SELECT employee_id
+      FROM Employees
+      WHERE employee_id = 2
+    )
+  ),
+  (
+    "2022-11-26",
+    (
+      SELECT customer_id
+      FROM Customers
+      WHERE customer_id = 2005
+    ),
+    (
+      SELECT employee_id
+      FROM Employees
+      WHERE employee_id = 1
+    )
   );
 Insert INTO Pc_orders_has_items (pc_order_id, item_id, quantity)
 VALUES (
@@ -170,26 +233,34 @@ VALUES (
       from Items
       WHERE pc_purpose = "Home"
     ),
-    1
+    2
   ),
   (
     5002,
     (
       SELECT item_id
       from Items
-      WHERE pc_purpose = "Business"
+      WHERE pc_purpose = "Business" and pc_format = "Desktop"
     ),
     1
   ),
   (
     5003,
-    (
-      SELECT item_id
-      from Items
-      WHERE pc_purpose = "Home"
-    ),
+    1003,
     2
+  ),
+  (
+    5004,
+    1004,
+    2
+  ),
+  (
+    5005,
+    1005,
+    20
   );
+
+
 -- Show all tables
 SELECT *
 FROM Customers;
