@@ -39,16 +39,6 @@ app.get('/customers', function(req, res) {
   })
 });
 
-    // SELECT * FROM Employees 
-    // WHERE Employees.employee_first_name LIKE "John" OR 
-    // Employees.employee_last_name LIKE "John";
-
-//   db.pool.query(queryCustomers, function(error, rows, fields) {
-//     res.render('customers', {data: rows});
-//   })
-// });
-
-
 app.post('/add-customer', function (req, res) {
   let data = req.body;
 
