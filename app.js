@@ -260,23 +260,25 @@ app.get('/pc-orders', function (req, res) {
 
 app.post('/add-pc_orders-ajax', function(req, res) {
   let data = req.body;
-  query1 = `INSERT INTO Pc_orders(order_date, customer_id)
-            VALUES ('${data.order_date}', '${data.customer_id}')`;
-  query2 = `INSERT into Pc_orders_has_items(order_id, item_id, quantity)
-            VALUES ('${data.order_id}', '${data.item_id}', '${data.quantity}')`;
-  let queryPcorders =   `SELECT Pc_orders.pc_order_id AS "pc_order_id",
-                        DATE_FORMAT(Pc_orders.order_date, '%Y-%m-%d') AS "order_date",
-                        CONCAT(Customers.customer_first_name, ' ', Customers.customer_last_name) AS "customer_id",
-                        CONCAT(Employees.employee_first_name, ' ', Employees.employee_last_name) AS "employee_id",
-                        CONCAT('$', FORMAT(SUM(Items.item_cost * Pc_orders_has_items.quantity), '2')) AS "total"
-                        FROM Pc_orders
-                        LEFT JOIN Pc_orders_has_items using (pc_order_id)
-                        LEFT JOIN Customers using (customer_id)
-                        LEFT JOIN Employees using (employee_id)
-                        LEFT JOIN Items using (item_id)
-                        GROUP BY Pc_orders.pc_order_id;`
 
-  queryNew = `START TRANSACTION; Insert INTO Pc_orders (order_date, customer_id) VALUES ('${data.order_date}', (SELECT customer_id FROM Customers WHERE customer_id = '${data.customer_id}')); Insert INTO Pc_orders_has_items (pc_order_id, item_id, quantity) VALUES (LAST_INSERT_ID(), '${data.item_id}', '${data.quantity}');COMMIT;`;
+  let queryPcorders = `SELECT Pc_orders.pc_order_id AS "pc_order_id",
+                      DATE_FORMAT(Pc_orders.order_date, '%Y-%m-%d') AS "order_date",
+                      CONCAT(Customers.customer_first_name, ' ', Customers.customer_last_name) AS "customer_id",
+                      CONCAT(Employees.employee_first_name, ' ', Employees.employee_last_name) AS "employee_id",
+                      CONCAT('$', FORMAT(SUM(Items.item_cost * Pc_orders_has_items.quantity), '2')) AS "total"
+                      FROM Pc_orders
+                      LEFT JOIN Pc_orders_has_items using (pc_order_id)
+                      LEFT JOIN Customers using (customer_id)
+                      LEFT JOIN Employees using (employee_id)
+                      LEFT JOIN Items using (item_id)
+                      GROUP BY Pc_orders.pc_order_id;`
+
+  let queryNew = `START TRANSACTION; 
+    Insert INTO Pc_orders (order_date, customer_id) 
+    VALUES ('${data.order_date}', 
+    (SELECT customer_id FROM Customers WHERE customer_id = '${data.customer_id}')); 
+    Insert INTO Pc_orders_has_items (pc_order_id, item_id, quantity) 
+    VALUES (LAST_INSERT_ID(), '${data.item_id}', '${data.quantity}');COMMIT;`;
 
   db.pool.query(queryNew, function(error, rows, fields) {
     if (error) {
@@ -295,7 +297,6 @@ app.post('/add-pc_orders-ajax', function(req, res) {
   })          
 });
 
-
 app.delete('/delete-pc_order-ajax', function(req, res, next) {
   let data = req.body;
   let pcOrderId = parseInt(data.id);
@@ -307,6 +308,36 @@ app.delete('/delete-pc_order-ajax', function(req, res, next) {
       res.sendStatus(400);
     } else {
       res.sendStatus(204);
+    }
+  })
+});
+
+
+app.put('/put-pc-order-ajax', function(req, res) {
+  let data = req.body;
+
+  let orderId = parseInt(data.orderId);
+  let employee = parseInt(data.employee);
+
+  let queryUpdatePcOrders = `UPDATE Pc_orders SET employee_id = ? WHERE pc_order_id = ?;`;
+  let selectPcOrder = `SELECT Pc_orders.pc_order_id,
+                      CONCAT(Employees.employee_first_name, ' ', Employees.employee_last_name) AS "employee_id"
+                      FROM Pc_orders 
+                      LEFT JOIN Employees using (employee_id)
+                      WHERE pc_order_id = ?;`
+  db.pool.query(queryUpdatePcOrders, [employee, orderId], function (error, rows, fields) {
+    if (error) {
+      console.log(error);
+      res.sendStatus(400);
+    } else {
+      db.pool.query(selectPcOrder, [orderId], function (error, rows, fields) {
+        if (error) {
+          console.log(error);
+          res.sendStatus(400);
+        } else {
+          res.send(rows);
+        }
+      })
     }
   })
 });

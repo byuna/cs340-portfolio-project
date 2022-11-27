@@ -23,10 +23,10 @@ addPcOrderForm.addEventListener("submit", function (e) {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
       addRowToTable(xhttp.response);
 
-      inputOrderDate = '';
-      inputCustomerID = '';
-      inputItemID = '';
-      inputItemQuantity = '';
+      inputOrderDate.value = '';
+      inputCustomerID.value = '';
+      inputItemID.value = '';
+      inputItemQuantity.value = '';
       
     } else if (xhttp.readyState == 4 && xhttp.status != 200) {
       console.log("There was an error with the input." + " " + xhttp.status);
@@ -43,7 +43,6 @@ addRowToTable = (data) => {
 
   let parsedData = JSON.parse(data);
   let newRow = parsedData[parsedData.length - 1];
-  console.log(newRow);
   let row = document.createElement("TR");
   let pcOrderIdCell = document.createElement("TD");
   let pcOrderDateCell = document.createElement("TD");
@@ -57,7 +56,7 @@ addRowToTable = (data) => {
   pcOrderDateCell.innerText = newRow.order_date;
   pcOrderCustomerCell.innerText = newRow.customer_id;
   pcOrderEmployeeCell.innerText = newRow.employee_id;
-  pcOrderTotalCell.innerText = newRow.total;           //// HOW DO I GET THE TOTAL?
+  pcOrderTotalCell.innerText = newRow.total;
 
   pcOrderDeleteButton = document.createElement("button");
   pcOrderDeleteButton.innerHTML = "Delete";
@@ -77,8 +76,9 @@ addRowToTable = (data) => {
   
   currentTable.appendChild(row);
 
-//   let SelectMenu = document.getElementById("mySelect");
-//   let option = document.createElement("option");
-//   option.text = newRow.employee_first_name + ' ' + newRow.employee_last_name;
-//   option.value = newRow.employee_id;
+  let selectMenu = document.getElementById("input-order-id");
+  let option = document.createElement("option");
+  option.text = newRow.pc_order_id;
+  option.value = newRow.pc_order_id;
+  selectMenu.add(option);
 }

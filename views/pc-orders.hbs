@@ -33,7 +33,7 @@
 </table>
 
 <h2>Start a PC Order</h2>
-<p>To start a new PC Order, please enter the information below and click 'Submit'!</p>
+<p>To start a new PC Order, please enter the information below and click 'Start Order'!</p>
 <form id="add-pc-orders-form-ajax">
   <label for="input-order_date">Order date: </label>
   <input type="date" name="input-order_date" id="input-order_date">
@@ -56,7 +56,7 @@
   <label for="input-quantity">Quantity: </label>
   <input type="number" name="input-quantity" id="input-quantity" min="1">
 
-  <input type="submit">
+  <input type="submit" value="Start Order">
 </form>
 
 
@@ -65,26 +65,25 @@ added. 2 queries will be required. --}}
 <h2>Order Update: Add Employee to Fulfill an Order</h2>
 <p>Select an order to have an employee help assist and finalize the sale.</p>
 <form id="update-pc-order-form">
-  <label for="update-pc-order-form">Order ID: </label>
-  <select name="update-pc-order-form" id="select-order-id">
+  <label for="input-order-id">Order ID: </label>
+  <select name="input-order-id" id="input-order-id">
     <option value="">Select an existing order</option>
     {{#each data}}
     <option value="{{"Order ID"}}">{{"Order ID"}}</option>
     {{/each}}
   </select>
 
-
 {{!-- By default, employees will be null once an order is started 
 until they're ready for checkout. Then an employee can be added to 
 fulfill' the order --}}
-  <label for="update-pc-order-form">Employee ID: </label>
-  <select name="input-fullname" id="select-employee">
+  <label for="input-employee">Employee ID: </label>
+  <select name="input-employee" id="input-employee">
     <option value="">Select an Employee</option>
     {{#each employees}}
     <option value="{{employee_id}}">{{employee_first_name}} {{employee_last_name}}</option>
     {{/each}}
   </select>
-  <input type="submit">
+  <input type="submit" value="Assign To">
 </form>
 
 
@@ -92,3 +91,5 @@ fulfill' the order --}}
 <script src="./js/add_pc_order.js"></script>
 
 <script src="./js/delete_pc_order.js"></script>
+
+<script src="./js/update_pc_orders.js"></script>
