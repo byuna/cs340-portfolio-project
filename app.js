@@ -27,17 +27,27 @@ app.get('/', function(req, res) {
 
 // #region Customers Page Routes
 app.get('/customers', function(req, res) {
-  // let queryCustomers;
+  let queryCustomers;
 
-  // if (req.query.searchName === undefined) {}
-  let queryCustomers = "SELECT customer_id AS 'Customer ID', customer_first_name AS 'First Name', customer_last_name AS 'Last Name', customer_phone AS 'Phone Number', customer_email AS 'Email Address' FROM Customers;"
-
-  
-
+  if (req.query.searchName === undefined) {
+    queryCustomers = "SELECT customer_id AS 'Customer ID', customer_first_name AS 'First Name', customer_last_name AS 'Last Name', customer_phone AS 'Phone Number', customer_email AS 'Email Address' FROM Customers;"
+  } else {
+    queryCustomers = `SELECT customer_id AS 'Customer ID', customer_first_name AS 'First Name', customer_last_name AS 'Last Name', customer_phone AS 'Phone Number', customer_email AS 'Email Address' FROM Customers WHERE customer_last_name LIKE "${req.query.searchName}" OR customer_first_name LIKE "${req.query.searchName}";`
+  }
   db.pool.query(queryCustomers, function (error, rows, fields) {
     res.render('customers', { data: rows });
   })
 });
+
+    // SELECT * FROM Employees 
+    // WHERE Employees.employee_first_name LIKE "John" OR 
+    // Employees.employee_last_name LIKE "John";
+
+//   db.pool.query(queryCustomers, function(error, rows, fields) {
+//     res.render('customers', {data: rows});
+//   })
+// });
+
 
 app.post('/add-customer', function (req, res) {
   let data = req.body;
