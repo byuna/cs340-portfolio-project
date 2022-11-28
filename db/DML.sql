@@ -16,6 +16,12 @@ SELECT *
 FROM Customers;
 -- Shows all the Pc_orders that have been placed
 SELECT *
+
+-- Search query for any name (first or last)
+SELECT * FROM Employees 
+WHERE Employees.employee_first_name LIKE :someName OR 
+Employees.employee_last_name LIKE :someName;
+
 FROM Pc_orders;
 -- Filter for Employee by last name
 SELECT 
@@ -138,6 +144,7 @@ UPDATE Pc_orders_has_items
 SET quantity = :quantity_entered_by_user
 WHERE pc_order_id = :pc_order_id
     and item_id = :item_id;
+
 -- Show items and their sub totals from a specific order id
 SELECT Items.pc_purpose,
     Items.pc_format,
@@ -198,3 +205,24 @@ COMMIT;
 UPDATE Pc_orders
 SET employee_id = :employee_id_that_helped_customer
 WHERE pc_order_id = :pc_order_id;
+
+
+-- IN WORK
+SELECT 
+Pc_orders.pc_order_id as "Order ID",
+Pc_orders_has_items.sub_order_id as "SubID",
+ CONCAT(
+        Customers.customer_first_name,
+        ' ',
+        Customers.customer_last_name
+    ) AS "Customer",
+Items.pc_purpose As "Purpose",
+    Items.pc_format AS "Format",
+    Pc_orders_has_items.quantity AS "Quantity",
+    Items.item_cost AS "Cost",
+    Pc_orders_has_items.quantity * Items.item_cost AS "Sub Total"
+FROM Pc_orders
+Right Join Customers using (customer_id)
+    RIGHT Join Pc_orders_has_items using (pc_order_id)
+    RIGHT Join Items using (item_id)
+WHERE pc_order_id = :SOME_PC_ORDER_ID;

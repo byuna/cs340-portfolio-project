@@ -7,7 +7,7 @@ var express = require('express');   // We are using the express library for the 
 var app = express();                // We need to instantiate an express object to interact with the server in our code.
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-PORT = 32147                        // Set a port number at the top so it's easy to change in the future.
+PORT = 32147
 
 // Handlebars setup
 const { engine } = require('express-handlebars');   // What does this do?
@@ -24,10 +24,15 @@ app.get('/', function(req, res) {
   res.render('index');
 });
 
-// CUSTOMERS PAGE ROUTE
+// #region Customers Page Routes
 app.get('/customers', function(req, res) {
-  let queryCustomers = "SELECT customer_id AS 'Customer ID', customer_first_name AS 'First Name', customer_last_name AS 'Last Name', customer_phone AS 'Phone Number', customer_email AS 'Email Address' FROM Customers;"
+  let queryCustomers;
 
+  if (req.query.searchName === undefined) {
+    queryCustomers = "SELECT customer_id AS 'Customer ID', customer_first_name AS 'First Name', customer_last_name AS 'Last Name', customer_phone AS 'Phone Number', customer_email AS 'Email Address' FROM Customers;"
+  } else {
+    queryCustomers = `SELECT customer_id AS 'Customer ID', customer_first_name AS 'First Name', customer_last_name AS 'Last Name', customer_phone AS 'Phone Number', customer_email AS 'Email Address' FROM Customers WHERE customer_last_name LIKE "%${req.query.searchName}%" OR customer_first_name LIKE "%${req.query.searchName}%";`
+  }
   db.pool.query(queryCustomers, function (error, rows, fields) {
     res.render('customers', { data: rows });
   })
@@ -72,8 +77,35 @@ app.delete('/delete-customer-ajax/', function(req, res, next) {
   })
 });
 
+app.put('/put-customer', function(req, res) {
+  let data = req.body;
 
-// ITEMS PAGE ROUTE
+  let phone = data.customer_phone;
+  let customer = parseInt(data.fullName);
+
+  let queryUpdatePhone = `UPDATE Customers SET customer_phone = ? where Customers.customer_id = ?`;
+  let querySelectAllCustomers = `SELECT * FROM Customers WHERE customer_id = ?;`
+  db.pool.query(queryUpdatePhone, [phone, customer], function(error, rows, fields) {
+    if (error) {
+      console.log(error);
+      res.sendStatus(400);
+    } else {
+      db.pool.query(querySelectAllCustomers, [customer], function(error, rows, fields) {
+        if (error) {
+          console.log(error);
+          res.sendStatus(400);
+        } else {
+          res.send(rows);
+        }
+      })
+    }
+  })
+});
+
+//#endregion
+
+
+// #region ITEMS PAGE ROUTE
 app.get('/items', function(req, res) {
   
   let queryItems = `SELECT item_id AS 'Item ID', 
@@ -139,9 +171,9 @@ app.delete('/delete-item-ajax/', function(req, res, next) {
     }
   })
 });
+// #endregion
 
-
-// EMPLOYEES PAGE ROUTE
+// #region EMPLOYEES PAGE ROUTE
 app.get('/employees', function(req, res) {
   let query1;
   // If there is no query string, we just perform a basic SELECT.
@@ -222,9 +254,9 @@ app.put('/put-employee', function(req, res) {
     }
   })
 });
+// #endregion
 
-
-// PC_ORDERS PAGE ROUTES
+// #region PC_ORDERS PAGE ROUTES
 app.get('/pc-orders', function (req, res) {
 
   let queryPcorders =   `SELECT Pc_orders.pc_order_id AS "Order ID",
@@ -341,9 +373,10 @@ app.put('/put-pc-order-ajax', function(req, res) {
     }
   })
 });
+// #endregion
 
 
-// PC ORDERS HAS ITEMS ROUTES
+// #region PC ORDERS HAS ITEMS ROUTES
 app.get('/pc-orders-has-items', function (req, res) {
 
   if (req.query.poid == '') {
@@ -456,6 +489,7 @@ app.put('/put-pc-orders-has-items-ajax', function (req, res) {
     }
   })
 });
+// #endregion
 
 // LISTENER
 app.listen(PORT, function () {   // This is the basic syntax for what is called the 'listener' which recieves incoming requests on the specified PORT.
