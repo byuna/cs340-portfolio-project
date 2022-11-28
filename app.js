@@ -7,8 +7,7 @@ var express = require('express');   // We are using the express library for the 
 var app = express();                // We need to instantiate an express object to interact with the server in our code.
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-PORT = 32148                        // Set a port number at the top so it's easy to change in the future.
-// Temporarily changed to 32148, port keeps stating in use
+PORT = 32147
 
 // Handlebars setup
 const { engine } = require('express-handlebars');   // What does this do?
@@ -32,7 +31,7 @@ app.get('/customers', function(req, res) {
   if (req.query.searchName === undefined) {
     queryCustomers = "SELECT customer_id AS 'Customer ID', customer_first_name AS 'First Name', customer_last_name AS 'Last Name', customer_phone AS 'Phone Number', customer_email AS 'Email Address' FROM Customers;"
   } else {
-    queryCustomers = `SELECT customer_id AS 'Customer ID', customer_first_name AS 'First Name', customer_last_name AS 'Last Name', customer_phone AS 'Phone Number', customer_email AS 'Email Address' FROM Customers WHERE customer_last_name LIKE "${req.query.searchName}" OR customer_first_name LIKE "${req.query.searchName}";`
+    queryCustomers = `SELECT customer_id AS 'Customer ID', customer_first_name AS 'First Name', customer_last_name AS 'Last Name', customer_phone AS 'Phone Number', customer_email AS 'Email Address' FROM Customers WHERE customer_last_name LIKE "%${req.query.searchName}%" OR customer_first_name LIKE "%${req.query.searchName}%";`
   }
   db.pool.query(queryCustomers, function (error, rows, fields) {
     res.render('customers', { data: rows });
