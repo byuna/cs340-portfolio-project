@@ -225,4 +225,4 @@ FROM Pc_orders
 Right Join Customers using (customer_id)
     RIGHT Join Pc_orders_has_items using (pc_order_id)
     RIGHT Join Items using (item_id)
-WHERE pc_order_id = 5003;
+WHERE pc_order_id = :SOME_PC_ORDER_ID;
