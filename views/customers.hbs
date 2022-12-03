@@ -37,16 +37,25 @@
 <p>To add a new customer, please enter the information below and click 'Add Customer'!</p>
 <form id="add-customer-form">
   <label for="input-customer_first_name">First name: </label>
-  <input type="text" name="input-customer_first_name" id="input-customer_first_name">
+  <input type="text" name="input-customer_first_name" id="input-customer_first_name" required
+  oninvalid="this.setCustomValidity('Please enter a first name.')"
+  oninput="setCustomValidity('')">
 
   <label for="input-customer_last_name">Last name: </label>
-  <input type="text" name="input-customer_last_name" id="input-customer_last_name">
+  <input type="text" name="input-customer_last_name" id="input-customer_last_name" required
+  oninvalid="this.setCustomValidity('Please enter a last name.')"
+  oninput="setCustomValidity('')">
 
   <label for="input-customer_phone">Phone number: </label>
-  <input type="text" name="input-customer_phone" id="input-customer_phone">
+  <input type="text" name="input-customer_phone" id="input-customer_phone"
+  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required placeholder="###-###-####"
+  oninvalid="this.setCustomValidity('Please enter a valid number ###-###-####')"
+  oninput="setCustomValidity('')">
 
   <label for="input-customer_email">Email address: </label>
-  <input type="text" name="input-customer_email" id="input-customer_email">
+  <input type="text" name="input-customer_email" id="input-customer_email" required
+  oninvalid="this.setCustomValidity('Please enter a valid email.')"
+  oninput="setCustomValidity('')">
 
   <input type="submit" value="Add Customer">
 </form>
@@ -58,12 +67,15 @@
   <select name="input-fullname" id="mySelect">
     <option value="test">Select a Customer</option>
     {{#each data}}
-    <option value="{{"Customer ID"}}">{{"Customer ID"}}. {{"First Name"}} {{"Last Name"}}</option>
+    <option value="{{"Customer ID"}}">{{"Customer ID"}} - {{"First Name"}} {{"Last Name"}}</option>
     {{/each}}
   </select>
 
   <label for="input-phone">Phone Number: </label>
-  <input type="text" name="input-customer_phone-update" id="input-customer_phone-update">
+  <input type="text" name="input-customer_phone-update" id="input-customer_phone-update"
+  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required placeholder="###-###-####"
+  oninvalid="this.setCustomValidity('Please enter a valid number ###-###-####')"
+  oninput="setCustomValidity('')">
   <input type="submit" value="Update">
 </form>
 
@@ -83,3 +95,9 @@
 <script src="./js/add_customer.js"></script>
 
 <script src="./js/delete_customer.js"></script>
+
+
+{{!--
+References 
+https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/tel
+--}}

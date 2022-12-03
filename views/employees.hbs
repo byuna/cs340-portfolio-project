@@ -36,16 +36,25 @@
 <p>To add a new employee, please enter the information below and click 'Apply Now'!</p>
 <form id="add-employee-form-ajax">
   <label for="input-employee_first_name">First name: </label>
-  <input type="text" name="input-employee_first_name" id="input-employee_first_name">
+  <input type="text" name="input-employee_first_name" id="input-employee_first_name" required
+  oninvalid="this.setCustomValidity('Please enter a first name.')"
+  oninput="setCustomValidity('')">
 
   <label for="input-employee_last_name">Last name: </label>
-  <input type="text" name="input-employee_last_name" id="input-employee_last_name">
+  <input type="text" name="input-employee_last_name" id="input-employee_last_name" required
+  oninvalid="this.setCustomValidity('Please enter a last name.')"
+  oninput="setCustomValidity('')">
 
   <label for="input-employee_phone">Phone number: </label>
-  <input type="text" name="input-employee_phone" id="input-employee_phone">
+  <input type="text" name="input-employee_phone" id="input-employee_phone"
+  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required placeholder="###-###-####"
+  oninvalid="this.setCustomValidity('Please enter a valid number ###-###-####')"
+  oninput="setCustomValidity('')">
 
  <label for="input-employee_email">Email address: </label>
-  <input type="text" name="input-employee_email" id="input-employee_email">
+  <input type="text" name="input-employee_email" id="input-employee_email" required
+  oninvalid="this.setCustomValidity('Please enter a valid email.')"
+  oninput="setCustomValidity('')">
 
   <input type="submit" value="Apply Now">
 </form>
@@ -57,12 +66,15 @@
   <select name="input-fullname" id="mySelect">
     <option value="test">Select an Employee</option>
     {{#each data}}
-    <option value="{{"Employee ID"}}">{{"First Name"}} {{"Last Name"}}</option>
+    <option value="{{"Employee ID"}}">{{"Employee ID"}} - {{"First Name"}} {{"Last Name"}}</option>
     {{/each}}
   </select>
 
   <label for="input-phone">Phone Number: </label>
-  <input type="text" name="input-employee_phone-update" id="input-employee_phone-update">
+  <input type="text" name="input-employee_phone-update" id="input-employee_phone-update" 
+  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required placeholder="###-###-####"
+  oninvalid="this.setCustomValidity('Please enter a valid number ###-###-####')"
+  oninput="setCustomValidity('')">
   <input type="submit" value="Update">
 </form>
 
@@ -84,3 +96,8 @@
 
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="./js/add_employee.js"></script>
+
+{{!--
+References 
+https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/tel
+--}}

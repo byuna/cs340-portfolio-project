@@ -28,10 +28,10 @@ addEmployeeForm.addEventListener("submit", function (e) {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
       addRowToTable(xhttp.response);
 
-      inputEmployeeFirstName = '';
-      inputEmployeeLastName = '';
-      inputEmployeePhone = '';
-      inputEmployeeEmail = '';
+      inputEmployeeFirstName.value = '';
+      inputEmployeeLastName.value = '';
+      inputEmployeePhone.value = '';
+      inputEmployeeEmail.value = '';
       
     } else if (xhttp.readyState == 4 && xhttp.status != 200) {
       console.log("There was an error with the input.");

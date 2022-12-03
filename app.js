@@ -122,11 +122,22 @@ app.get('/items', function(req, res) {
 
 app.post('/add-item-ajax', function (req, res) {
   let data = req.body;
-
+  console.log(data);
   let cost = parseFloat(data.item_cost);
   if (isNaN(cost)) {
-    console.log("Invalid parameter for float type.")
-    res.sendStatus(400);
+    cost = NULL
+  }
+  console.log(cost)
+  if (data.item_description == '') {
+    data.item_description = NULL
+  }
+
+  if (data.pc_format == "") {
+    data.pc_format = NULL
+  }
+
+  if (data.pc_purpose == "") {
+    data.pc_purpose = NULL
   }
 
   query1 = `INSERT INTO Items (item_description, item_cost, pc_format, pc_purpose) 
