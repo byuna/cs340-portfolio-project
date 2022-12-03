@@ -36,7 +36,7 @@
 <p>To start a new PC Order, please enter the information below and click 'Start Order'!</p>
 <form id="add-pc-orders-form-ajax">
   <label for="input-order_date">Order date: </label>
-  <input type="date" name="input-order_date" id="input-order_date">
+  <input type="date" name="input-order_date" id="input-order_date" required>
   <label for="input-customer_id">Customer ID: </label>
   <select name="input-customer_id" id="input-customer_id">
     <option value="null">Select Customer</option>
@@ -80,7 +80,7 @@ fulfill' the order --}}
   <select name="input-employee" id="input-employee">
     <option value="">Select an Employee</option>
     {{#each employees}}
-    <option value="{{employee_id}}">{{employee_first_name}} {{employee_last_name}}</option>
+    <option value="{{employee_id}}">{{employee_id}} - {{employee_first_name}} {{employee_last_name}}</option>
     {{/each}}
   </select>
   <input type="submit" value="Assign To">
