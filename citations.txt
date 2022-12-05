@@ -1,0 +1,13 @@
+Citations
+1. https://github.com/osu-cs340-ecampus/nodejs-starter-app, 2022
+
+2. https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/tel, 2022
+
+
+citation scope (e.g. module, function or line) 
+
+date
+
+originality, (e.g. (copied, adapted, or based)
+
+source (e.g. URL)
