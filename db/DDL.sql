@@ -1,3 +1,9 @@
+-- Abraham Byun and Steven Tran
+-- Group 51 
+-- Assignment 6 - Final Project
+--
+-- Data Definition File
+
 SET foreign_key_checks = 0;
 DROP TABLE IF EXISTS Customers;
 DROP TABLE IF EXISTS Employees;
