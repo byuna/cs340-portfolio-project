@@ -122,7 +122,7 @@ app.get('/items', function(req, res) {
 
 app.post('/add-item-ajax', function (req, res) {
   let data = req.body;
-  console.log(data);
+
   let cost = parseFloat(data.item_cost);
   if (isNaN(cost)) {
     cost = NULL
@@ -360,7 +360,15 @@ app.put('/put-pc-order-ajax', function(req, res) {
   let data = req.body;
 
   let orderId = parseInt(data.orderId);
-  let employee = parseInt(data.employee);
+  let employee = data.employee_id;
+
+
+  // Nullable Update.
+  if (employee == "") {
+    employee = NULL;
+  }
+
+  console.log(employee);
 
   let queryUpdatePcOrders = `UPDATE Pc_orders SET employee_id = ? WHERE pc_order_id = ?;`;
   let selectPcOrder = `SELECT Pc_orders.pc_order_id,
