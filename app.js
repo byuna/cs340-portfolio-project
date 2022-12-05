@@ -403,7 +403,8 @@ app.get('/pc-orders-has-items', function (req, res) {
     CONCAT('$', FORMAT(Items.item_cost, '2')) as 'Cost Per Unit', 
     quantity AS 'Quantity' 
     FROM Pc_orders_has_items
-    JOIN Items using (item_id);`
+    JOIN Items using (item_id)
+    ORDER BY sub_order_id;`
   } else {
     selectPcOrdersHasItems = `SELECT sub_order_id AS 'Sub Order ID', 
     pc_order_id AS 'PC Order ID', 
