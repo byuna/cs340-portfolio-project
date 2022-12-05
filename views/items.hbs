@@ -5,7 +5,7 @@
   {{!-- Header section --}}
   <thead>
     {{!-- For just the first row, we print each key of the row object as a header cell so we
-      know what each column means when the page renders --}}
+    know what each column means when the page renders --}}
     <tr>
       {{#each data.[0]}}
       <th>
@@ -16,7 +16,7 @@
     </tr>
   </thead>
 
-  
+
   {{!-- Body section --}}
   <tbody>
     {{#each data}}
@@ -45,15 +45,22 @@
   <select name="input-pc_format" id="input-pc_format">
     <option value="">Select a PC Format</option>
     <option value="Desktop">Desktop</option>
+    <option value="Handheld Computer">Handheld Computer</option>
     <option value="Laptop">Laptop</option>
+    <option value="Netbook">Netbook</option>
+    <option value="Tablet">Tablet</option>
+    <option value="Workstation">Workstation</option>
   </select>
 
   <label for="input-pc_purpose">PC Purpose: </label>
-    <select name="input-pc_purpose" id="input-pc_purpose">
+  <select name="input-pc_purpose" id="input-pc_purpose">
     <option value="">Select a PC Purpose</option>
-    <option value="Home">Home</option>
     <option value="Business">Business</option>
+    <option value="Education">Education</option>
+    <option value="Home">Home</option>
     <option value="Gaming">Gaming</option>
+    <option value="General">General</option>
+    <option value="Server">Server</option>
   </select>
 
   <input type="submit" value="Add Item">
