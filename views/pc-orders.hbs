@@ -82,6 +82,7 @@ fulfill' the order --}}
     {{#each employees}}
     <option value="{{employee_id}}">{{employee_id}} - {{employee_first_name}} {{employee_last_name}}</option>
     {{/each}}
+    <option value="NULL">Remove Employee</option>
   </select>
   <input type="submit" value="Assign To">
 </form>
