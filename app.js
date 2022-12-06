@@ -362,13 +362,12 @@ app.put('/put-pc-order-ajax', function(req, res) {
   let orderId = parseInt(data.orderId);
   let employee = data.employee;
 
+  // nullable update fixed.
   if (!isNaN(employee)) {
     employee = parseInt(data.employee);
   } else {
     employee = null;
   }
-
-
 
   let queryUpdatePcOrders = `UPDATE Pc_orders SET employee_id = ? WHERE pc_order_id = ?;`;
   let selectPcOrder = `SELECT Pc_orders.pc_order_id,
