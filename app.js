@@ -360,15 +360,15 @@ app.put('/put-pc-order-ajax', function(req, res) {
   let data = req.body;
 
   let orderId = parseInt(data.orderId);
-  let employee = data.employee_id;
+  let employee = data.employee;
 
-
-  // Nullable Update.
-  if (employee == "") {
-    employee = NULL;
+  if (!isNaN(employee)) {
+    employee = parseInt(data.employee);
+  } else {
+    employee = null;
   }
 
-  console.log(employee);
+
 
   let queryUpdatePcOrders = `UPDATE Pc_orders SET employee_id = ? WHERE pc_order_id = ?;`;
   let selectPcOrder = `SELECT Pc_orders.pc_order_id,
