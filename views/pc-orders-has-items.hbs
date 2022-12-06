@@ -58,7 +58,7 @@
 </form>
 
 <h2>Update an Item within a PC Order</h2>
-<p>Please enter the PC Order Sub ID to be udpated and new fields.</p>
+<p>Please enter the PC Order Sub ID to be updated and new fields.</p>
 <form id="update-pc_orders_has_items-form-ajax">
   <label for="input-update-sub_order_id">Sub Order ID: </label>
   <select name="input-update-sub_order_id" id="input-update-sub_order_id">
@@ -75,12 +75,16 @@
 </form>
 
 <h2>Search for your order here</h2>
-<p>Enter your PC Order ID to see all Items on your order<p>
+<p>Select a PC Order ID to see all Items within the Order<p>
 <form id ="search-pc_orders_has_items-html" method='GET' action='/pc-orders-has-items'>
-  <label for="input-poid">Search by PC Order ID: </label>
-  <input type="text" name="poid" id="input-poid-html-search">
-
-  <input type="submit" value="Search">
+  <label for="input-poid">PC Order ID: </label>
+    <select name="poid" id="input-poid-html-search">
+        <option value="">Select Order</option>
+    {{#each pc_orders}}
+    <option value="{{pc_order_id}}">{{pc_order_id}}</option>
+    {{/each}}
+  </select>
+  <input type="submit" value="Filter">
   <a href='/pc-orders-has-items'><button>Reset</button></a>
 </form>
 
