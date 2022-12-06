@@ -26,7 +26,7 @@ addItemForm.addEventListener("submit", function (e) {
 
   xhttp.onreadystatechange = () => {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
-      addRowToTable(xhttp.response);                          // Was missing
+      addRowToTable(xhttp.response);
 
       inputItemDescription.value = "";
       inputItemCost.value = "";
@@ -44,7 +44,6 @@ addItemForm.addEventListener("submit", function (e) {
 addRowToTable = (data) => {
   let currentTable = document.getElementById("items-table");
 
-  // may not need
   let newRowIndex = currentTable.rows.length;
 
   let parsedData = JSON.parse(data);

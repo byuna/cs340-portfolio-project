@@ -28,6 +28,8 @@ app.get('/', function(req, res) {
 app.get('/customers', function(req, res) {
   let queryCustomers;
 
+
+  // If the search field is left blank, then the table will SELECT all, otherwise it will search for the name entered.
   if (req.query.searchName === undefined) {
     queryCustomers = "SELECT customer_id AS 'Customer ID', customer_first_name AS 'First Name', customer_last_name AS 'Last Name', customer_phone AS 'Phone Number', customer_email AS 'Email Address' FROM Customers;"
   } else {
@@ -47,8 +49,8 @@ app.post('/add-customer', function (req, res) {
       console.log(error)
       res.sendStatus(400);
     } else {
-      let query1 = 'SELECT * FROM Customers;';
-      db.pool.query(query1, function (error, rows, fields) {
+      let selectCustomersQuery = 'SELECT * FROM Customers;';
+      db.pool.query(selectCustomersQuery, function (error, rows, fields) {
         if (error) {
           console.log(error);
           res.sendStatus(400);
@@ -123,6 +125,7 @@ app.get('/items', function(req, res) {
 app.post('/add-item-ajax', function (req, res) {
   let data = req.body;
 
+  // If a user tries to submit an empty string in a field, the field is set to NULL so that the SQL insert will fail.
   let cost = parseFloat(data.item_cost);
   if (isNaN(cost)) {
     cost = NULL
@@ -140,15 +143,14 @@ app.post('/add-item-ajax', function (req, res) {
     data.pc_purpose = NULL
   }
 
-  query1 = `INSERT INTO Items (item_description, item_cost, pc_format, pc_purpose) 
+  insertItemsQuery = `INSERT INTO Items (item_description, item_cost, pc_format, pc_purpose) 
   VALUES ('${data.item_description}', '${data.item_cost}', '${data.pc_format}', '${data.pc_purpose}')`;
 
-  db.pool.query(query1, function (error, rows, fields) {
+  db.pool.query(insertItemsQuery, function (error, rows, fields) {
     if (error) {
       console.log(error);
       res.sendStatus(400);
     } else {
-
       allItemsQuery = `SELECT item_id,
       item_description,
       CONCAT('$', FORMAT(item_cost, '2')) AS 'item_cost', 
@@ -186,15 +188,16 @@ app.delete('/delete-item-ajax/', function(req, res, next) {
 
 // #region EMPLOYEES PAGE ROUTE
 app.get('/employees', function(req, res) {
-  let query1;
+  let employeeSelectQuery;
+
   // If there is no query string, we just perform a basic SELECT.
   if (req.query.lname === undefined) {
-    query1 = "SELECT employee_id AS 'Employee ID', employee_first_name AS 'First Name', employee_last_name AS 'Last Name', employee_phone AS 'Phone Number', employee_email AS 'Email Address' FROM Employees;"
+    employeeSelectQuery = "SELECT employee_id AS 'Employee ID', employee_first_name AS 'First Name', employee_last_name AS 'Last Name', employee_phone AS 'Phone Number', employee_email AS 'Email Address' FROM Employees;"
   } else {
-    query1 = `SELECT employee_id AS 'Employee ID', employee_first_name AS 'First Name', employee_last_name AS 'Last Name', employee_phone AS 'Phone Number', employee_email AS 'Email Address' FROM Employees WHERE employee_last_name LIKE "${req.query.lname}%";`
+    employeeSelectQuery = `SELECT employee_id AS 'Employee ID', employee_first_name AS 'First Name', employee_last_name AS 'Last Name', employee_phone AS 'Phone Number', employee_email AS 'Email Address' FROM Employees WHERE employee_last_name LIKE "${req.query.lname}%";`
   }
 
-  db.pool.query(query1, function(error, rows, fields) {
+  db.pool.query(employeeSelectQuery, function(error, rows, fields) {
     res.render('employees', {data: rows});
   })
 });
@@ -397,6 +400,7 @@ app.put('/put-pc-order-ajax', function(req, res) {
 // #region PC ORDERS HAS ITEMS ROUTES
 app.get('/pc-orders-has-items', function (req, res) {
 
+  // pc order id. If field was left blank, it would insert a blank string ''. Had to set to null if empty string.
   if (req.query.poid == '') {
     req.query.poid = undefined;
   };
