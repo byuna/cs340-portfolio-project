@@ -101,5 +101,11 @@ addRowToTable = (data) => {
   row.setAttribute('data-value', newRow.customer_id);
 
   currentTable.appendChild(row);
+
+  let selectMenu = document.getElementById("mySelect");
+  let option = document.createElement("option");
+  option.text = newRow.customer_id + ' - ' + newRow.customer_first_name + ' ' + newRow.customer_last_name;
+  option.value = newRow.employee_id;
+  selectMenu.add(option);
 }
 

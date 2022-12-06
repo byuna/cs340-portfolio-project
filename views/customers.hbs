@@ -46,6 +46,7 @@
   oninvalid="this.setCustomValidity('Please enter a last name.')"
   oninput="setCustomValidity('')">
 
+  <!--Regex and the required keyword make sure that the number is accepted, only if it is in the proper format. -->
   <label for="input-customer_phone">Phone number: </label>
   <input type="text" name="input-customer_phone" id="input-customer_phone"
   pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required placeholder="###-###-####"
@@ -95,9 +96,3 @@
 <script src="./js/add_customer.js"></script>
 
 <script src="./js/delete_customer.js"></script>
-
-
-{{!--
-References 
-https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/tel
---}}

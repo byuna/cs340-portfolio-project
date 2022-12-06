@@ -20,6 +20,8 @@ app.use(express.static(__dirname + '/public'));
 var db = require('./db/db-connector');
 
 // ROUTES
+
+// Home Page.
 app.get('/', function(req, res) {
   res.render('index');
 });
@@ -143,6 +145,8 @@ app.post('/add-item-ajax', function (req, res) {
     data.pc_purpose = NULL
   }
 
+
+  // Convert to prepared SQL statement to prevent SQL injection, per Rina Easterday.
   insertItemsQuery = `INSERT INTO Items (item_description, item_cost, pc_format, pc_purpose) 
   VALUES ('${data.item_description}', '${data.item_cost}', '${data.pc_format}', '${data.pc_purpose}')`;
 

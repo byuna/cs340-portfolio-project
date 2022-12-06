@@ -18,7 +18,6 @@ function deletePcOrder(pcOrderId) {
 }
 
 function deleteRow(pcOrderId){
-
   let table = document.getElementById("pc_orders-table");
   for (let i = 0, row; row = table.rows[i]; i++) {
      if (table.rows[i].getAttribute("data-value") == pcOrderId) {

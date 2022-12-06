@@ -35,9 +35,10 @@ updatePcOrdersHasItemsForm.addEventListener("submit", function(e) {
 })
 
 function updateRow(data, subOrderId) {
-  let parsedData = JSON.parse(data);
 
+  let parsedData = JSON.parse(data);
   let table = document.getElementById("pc_orders_has_items-table");
+  
   for (let i = 0, row; row = table.rows[i]; i++) {
     if (table.rows[i].getAttribute("data-value") == subOrderId) {
       let updateRowIndex = table.getElementsByTagName("tr")[i];

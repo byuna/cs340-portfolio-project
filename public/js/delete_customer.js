@@ -26,3 +26,13 @@ function deleteRow(customerId) {
     }
   }
 };
+
+function deleteDropDownMenu(customerId) {
+  let selectMenu = document.getElementById("mySelect");
+  for (let i = 0; i < selectMenu.length; i++) {
+    if (Number(selectMenu.options[i].value) === Number(customerId)) {
+      selectMenu[i].remove();
+      break;
+    }
+  }
+}

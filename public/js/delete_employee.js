@@ -40,9 +40,9 @@ function deleteRow(employeeID){
     }
 }
 
-function deleteDropDownMenu(employeeID){
+function deleteDropDownMenu(employeeID) {
   let selectMenu = document.getElementById("mySelect");
-  for (let i = 0; i < selectMenu.length; i++){
+  for (let i = 0; i < selectMenu.length; i++) {
     if (Number(selectMenu.options[i].value) === Number(employeeID)){
       selectMenu[i].remove();
       break;
